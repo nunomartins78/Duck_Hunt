@@ -37,8 +37,10 @@ class Duck {
         this.duckDiv.style.width = w + 'px';
         this.duckDiv.style.height = w + 'px';
 
-        this.   duckImg = document.createElement('img');
+        this.duckImg = document.createElement('img');
         this.duckImg.src = 'images/flyingDuck.gif';
+
+        duckAnimation(this.duckImg, angle);
         this.duckImg.style.width = this.gooseWidth + 'px';
         this.duckImg.style.height = this.gooseWidth + 'px';
 
@@ -57,10 +59,10 @@ class Duck {
         return (dist(mouseX, mouseY, this.x + this.gooseWidth/2, this.y+ this.gooseWidth/2)< this.gooseWidth/2);
     }
     checkEdges() {
-        if (this.x > canvas.width || this.x < 0) {
+        if (this.x > 1850 || this.x < 0) {
             this.dirx = -this.dirx;
         }
-        if (this.y > canvas.height || this.y < 0) {
+        if (this.y > 950|| this.y < 0) {
             this.diry = -this.diry;
         }
     }
@@ -69,6 +71,13 @@ class Duck {
     }
 }
 
+function duckAnimation(img, angle) {
+    if(angle >= 0) {
+        // img.src = 'images/background.png';
+        img.style.transform = 'scaleX(-1)';
+    } else
+        img.style.transform = 'scaleX(1)';
+}
 function dist(x1, y1, x2, y2) {
     let dx = x2 - x1;
     let dy = y2 - y1;
