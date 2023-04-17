@@ -7,56 +7,27 @@ body{
 }
 
 img{
-    width: available;
+    /*width: available;*/
     position: absolute;
     bottom: 0;
 }
 
 #bird1{
-    right: 10%;
     transform:rotateY(180deg);
     animation-name: bird1;
-    animation-duration: 3s;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
 }
 #bird2 {
-    right: 20%;
+
     transform: rotateY(180deg);
-    animation-name: bird1;
-    animation-duration: 3s;
+    animation-name: bird2;
+    animation-duration: 5s;
 }
+#bird3 {
 
-#bird3{
-    right: 30%;
+
 }
-
-#bird4{
-    right: 40%;
-}
-
-#bird5{
-    right: 50%;
-}
-
-#bird6{
-    right: 60%;
-}
-
-#bird7{
-    right: 70%;
-}
-
-#bird8{
-    right: 80%;
-}
-
-#bird9{
-    right: 90%;
-}
-
-#bird10{
-    right: 100%;
-}
-
 :root{
     --random-right-10: 10%;
     --random-right-30: 30%;
@@ -64,15 +35,24 @@ img{
     --random-right-70: 70%;
     --random-right-90: 90%;
     --random-right-100: 100%;
+    --random-right-40: 40%;
+    --random-right-20: 20%;
+    --random-right-80: 80%;
+
+
     --random-bottom-10: 10%;
     --random-bottom-30: 30;
     --random-bottom-50: 50%;
     --random-bottom-70: 70%;
     --random-bottom-90: 90%;
     --random-bottom-100: 100%;
+    --random-bottom-40: 40%;
+    --random-bottom-20: 20%;
+    --random-bottom-80: 80%;
 }
 
 @keyframes bird1 {
+
     10% {right: var(--random-right-10); bottom: var(--random-bottom-10);}
     30% {right: var(--random-right-30); bottom: var(--random-bottom-30);}
     50% {right: var(--random-right-50); bottom: var(--random-bottom-50);}
@@ -82,10 +62,30 @@ img{
 }
 
 @keyframes bird2 {
-    10% {right: var(--random-right-10); bottom: var(--random-bottom-10);}
-    30% {right: var(--random-right-30); bottom: var(--random-bottom-30);}
-    50% {right: var(--random-right-50); bottom: var(--random-bottom-50);}
-    70% {right: var(--random-right-70); bottom: var(--random-bottom-70);}
-    90% {right: var(--random-right-90); bottom: var(--random-bottom-90);}
-    100% {right: var(--random-right-100); bottom: var(--random-bottom-100);}
+    5% {right: 5%; bottom: 5%;}
+    10% {right: 10%; bottom: 10%;}
+    15% {right: 15%; bottom: 15%;}
+    20% {right: 20%; bottom: 20%;}
+    25% {right: 25%; bottom: 25%;}
+    30% {right: 30%; bottom: 30%;}
+    35% {right: 35%; bottom: 35%;}
+    40% {right: 40%; bottom: 40%;}
+    45% {right: 45%; bottom: 45%;}
+    50% {right: 50%; bottom: 50%;}
+    55% {right: 55%; bottom: 55%;}
+    60% {right: 60%; bottom: 60%;}
+    65% {right: 65%; bottom: 65%;}
+    70% {right: 70%; bottom: 70%;}
+    75% {right: 75%; bottom: 75%;}
+    80% {right: 80%; bottom: 80%;}
+    85% {right: 85%; bottom: 85%;}
+    90% {right: 90%; bottom: 90%;}
+    95% {right: 95%; bottom: 95%;}
+    100% {right: 100%; bottom: 100%;}
+
+
+
+
+
+
 }
