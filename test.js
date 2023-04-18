@@ -211,22 +211,7 @@ document.addEventListener("mousedown", function (event) {
         if (ducks[i].clickMe()) {
             pew.volume = 1;
             pew.play();
-            switch (ducks[i].colour){
-                case "brown":
-                    ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
-                    score +=100;
-                    break;
-                case "blue":
-                    ducks[i].duckImg.src = 'images/blue_duck_shot.png';
-                    score +=300;
-                    break;
-                case "red":
-                    ducks[i].duckImg.src = 'images/red_duck_shot.png';
-                    score +=500;
-                    break;
-            }
-            scoreBoard.innerText = score;
-            ducks[i].duckDiv.id = 'dead';
+            colouredDucks(i);
             setTimeout(function (duckImg, duckDies, duck) {
                 switch (duck.colour){
                     case "red":
@@ -266,24 +251,28 @@ function audioVolume() {
     pew.volume = 1;
 }
 
+function colouredDucks(i) {
+    switch (ducks[i].colour) {
+        case "brown":
+            ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
+            score += 100;
+            break;
+        case "blue":
+            ducks[i].duckImg.src = 'images/blue_duck_shot.png';
+            score += 300;
+            break;
+        case "red":
+            ducks[i].duckImg.src = 'images/red_duck_shot.png';
+            score += 500;
+            break;
+    }
+    scoreBoard.innerText = score;
+    ducks[i].duckDiv.id = 'dead';
+}
+
 function nukeTheBurbs() {
     for (let i = 0; i <= ducks.length;) {
-        switch (ducks[i].colour) {
-            case "brown":
-                ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
-                score += 100;
-                break;
-            case "blue":
-                ducks[i].duckImg.src = 'images/blue_duck_shot.png';
-                score += 300;
-                break;
-            case "red":
-                ducks[i].duckImg.src = 'images/red_duck_shot.png';
-                score += 500;
-                break;
-        }
-        scoreBoard.innerText = score;
-        ducks[i].duckDiv.id = 'dead';
+        colouredDucks(i);
         setTimeout(function (duckImg, duckDies, ducks) {
             switch (ducks.colour) {
                 case "red":
