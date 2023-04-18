@@ -18,6 +18,14 @@ const blueDuckImg = new Image();
 blueDuckImg.src = 'images/blue_duck.gif';
 const redDuckImg = new Image();
 redDuckImg.src = 'images/red_duck.gif';
+const solidForeground = new Image();
+solidForeground.src = 'images/newForeground.png'
+let score = 0;
+let bullets = 15;
+const scoreBoard = document.getElementById('scoreBoard');
+scoreBoard.innerText = score;
+const bulletDisplay = document.getElementById('bulletDisplay');
+bulletDisplay.innerText = bullets;
 
 let randomSky= Math.floor(Math.random() * 3) + 1;
 switch (randomSky) {
@@ -39,14 +47,15 @@ let mouseX;
 let mouseY;
 
 class Duck {
-    constructor(x, y, w) {
+    constructor(x, y, w, colour) {
         this.x = x;
         this.y = y;
+        this.colour = colour;
         this.previousX = x;
         this.previousY = y;
         this.gooseWidth = w;
         const angle = Math.random() * 2 * Math.PI;
-        this.speed = 3; // ad   just this to change the speed of the ducks
+        this.speed = 2; // ad   just this to change the speed of the ducks
         this.dirx = this.speed * Math.cos(angle);
         this.diry = this.speed * Math.sin(angle);
 
@@ -63,7 +72,18 @@ class Duck {
 
 
         this.duckImg = document.createElement('img');
-        this.duckImg.src = 'images/brown_duck.gif';
+
+        switch (this.colour){
+            case "red":
+                this.duckImg.src = 'images/red_duck.gif';
+                break;
+            case "blue":
+                this.duckImg.src = 'images/blue_duck.gif';
+                break;
+            case "brown":
+                this.duckImg.src = 'images/brown_duck.gif';
+                break;
+        }
 
         this.duckDies = document.createElement("audio");
         this.duckDies.src = "images/dies.mp3";
@@ -95,6 +115,7 @@ class Duck {
         this.y += -this.diry;
         // this.duckImg.src = 'images/brown_duck_falling.gif';
         this.duckDiv.style.top = this.y + 'px';
+
     }
 
     clickMe(){
@@ -151,8 +172,16 @@ function drawDucks() {
     }
 }
 
-for (let i = 0; i < 20; i++) {
-    ducks.push(new Duck(900, 800, 100));
+for (let i = 0; i < 5; i++) {
+    ducks.push(new Duck(900, 800, 100,"brown"));
+}
+
+for (let i = 0; i < 5; i++) {
+    ducks.push(new Duck(900, 800, 100,"blue"));
+}
+
+for (let i = 0; i < 5; i++) {
+    ducks.push(new Duck(900, 800, 100,"red"));
 }
 
 document.addEventListener("mousedown", function (event) {
@@ -162,17 +191,55 @@ document.addEventListener("mousedown", function (event) {
     mouseX = event.clientX ;
     mouseY = event.clientY;
 
+    bullets--;
+    bulletDisplay.innerText = bullets;
+    checkBullets();
+
     console.log(mouseX + " & " + mouseY);
-    for (var i = ducks.length - 1; i > -1; i--) {
+    for (let i = ducks.length - 1; i > -1; i--) {
         if (ducks[i].clickMe()) {
             pew.volume = 1;
             pew.play();
 
+            switch (ducks[i].colour){
+                case "brown":
+                    score +=100;
+                    break;
+                case "blue":
+                    score +=300;
+                    break;
+                case "red":
+                    score +=500;
+                    break;
+            }
+
+            scoreBoard.innerText = score;
+
             ducks[i].duckDiv.id = 'dead';
-            ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
+            switch (ducks[i].colour){
+                case "red":
+                    ducks[i].duckImg.src = 'images/red_duck_shot.png';
+                    break;
+                case "blue":
+                    ducks[i].duckImg.src = 'images/blue_duck_shot.png';
+                    break;
+                case "brown":
+                    ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
+                    break;
+            };
             setTimeout(function (duckImg, duckDies) {
 
-                duckImg.src = 'images/brown_duck_falling.gif';
+                switch (ducks[i].colour){
+                    case "red":
+                        duckImg.src = 'images/red_duck_falling.gif';
+                        break;
+                    case "blue":
+                        duckImg.src = 'images/blue_duck_falling.gif';
+                        break;
+                    case "brown":
+                        duckImg.src = 'images/brown_duck_falling.gif';
+                        break;
+                };
                 pew.volume = 1;
                 duckDies.volume = 0.05;
                 duckDies.play();
@@ -186,6 +253,13 @@ document.addEventListener("mousedown", function (event) {
         }
     }
 });
+
+function checkBullets(){
+    if (bullets === 0){
+        console.log('game over!')
+    }
+}
+
 pew.addEventListener("timeupdate", function() {
     if (pew.volume < volumeThreshold) {
         pew.volume = 1;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <meta charset="UTF-8">
     <title>Duck Hunt</title>
@@ -15,17 +15,50 @@
         #foreground {
             position: absolute;
             background-image: url("images/newForeground2.png");
-            background-size: 1903px 936px;
             background-size: contain;
             z-index: 2;
             width: 1903px;
             height: 936px;
 
         }
+
+        #bulletDisplay{
+            display: flex;
+            position: absolute;
+            background-image: url("images/bullets.png");
+            background-size: 93px 63px;
+            z-index: 3;
+            width: 93px;
+            height: 63px;
+            top: 830px;
+            left: 55px;
+            font-size: 30pt;
+            color: white;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #scoreBoard{
+            display: flex;
+            position: absolute;
+            background-image: url("images/score-counter.png");
+            background-size: 158px 63px;
+            z-index: 3;
+            width: 158px;
+            height: 63px;
+            top: 830px;
+            left: 1700px;
+            font-size: 30pt;
+            color: white;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body id="body">
 <div id="foreground"> </div>
+<div id="scoreBoard"> </div>
+<div id="bulletDisplay"> </div>
 <!--<canvas id="myCanvas"></canvas>-->
 <audio id="pewSound" src="images/pew.mp3"></audio>
 
