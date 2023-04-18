@@ -92,7 +92,7 @@ class Duck {
         }
     }
     checkGround() {
-        if (this.y > 950|| this.y < 0) {
+        if (this.y > 820|| this.y < 0) {
             this.duckDiv.remove();
             // deadDucks.splice(0,1);
 
