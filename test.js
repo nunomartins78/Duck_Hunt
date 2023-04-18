@@ -8,18 +8,21 @@ window.innerHeight = screen.availHeight;
 
 const pew = document.getElementById("pewSound");
 const dies = document.getElementById("dieSound");
+const volumeThreshold = 1;
 
 const ducks = [];
 const deadDucks = [];
 const duckImg = new Image();
 duckImg.src = 'images/brown_duck.gif';
-
-let mouseX;
-let mouseY;
-
+const blueDuckImg = new Image();
+blueDuckImg.src = 'images/blue_duck.gif';
+const redDuckImg = new Image();
+redDuckImg.src = 'images/red_duck.gif';
 const backgroundImage = new Image();
 backgroundImage.src = 'images/background-old.png';
 
+let mouseX;
+let mouseY;
 
 class Duck {
     constructor(x, y, w) {
@@ -138,11 +141,13 @@ for (let i = 0; i < 20; i++) {
     ducks.push(new Duck(900, 525, 100));
 }
 
-addEventListener("mousedown", function (event) {
+document.addEventListener("mousedown", function (event) {
     // mouseX = event.clientX - canvas.offsetLeft;
     // mouseY = event.clientY - canvas.offsetTop;
+    // if (event.target.closest("#foreground")) return;
     mouseX = event.clientX ;
     mouseY = event.clientY;
+
     console.log(mouseX + " & " + mouseY);
     for (var i = ducks.length - 1; i > -1; i--) {
         if (ducks[i].clickMe()) {
@@ -154,8 +159,10 @@ addEventListener("mousedown", function (event) {
             setTimeout(function (duckImg, duckDies) {
 
                 duckImg.src = 'images/brown_duck_falling.gif';
+                pew.volume = 1;
                 duckDies.volume = 0.05;
                 duckDies.play();
+
 
             }, 550, ducks[i].duckImg, ducks[i].duckDies);
             deadDucks.push(ducks[i]);
@@ -163,6 +170,11 @@ addEventListener("mousedown", function (event) {
 
             break;
         }
+    }
+});
+pew.addEventListener("timeupdate", function() {
+    if (pew.volume < volumeThreshold) {
+        pew.volume = 1; // set volume to maximum level
     }
 });
 
