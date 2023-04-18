@@ -9,14 +9,27 @@
             background-color: transparent;
         }
         body {
-
-            background-image: url("images/background-old.png");
-            background-size: cover;
+            margin: 0;
+            width: 1903px;
+            height: 936px;
+            background-image: url("images/newBackground.png");
+            background-repeat: no-repeat;
+            background-size: 100%;
         }
+        #foreground {
+            position: absolute;
+            background-image: url("images/foreground.png");
+            background-size: 1903px 936px;;
+            z-index: 2;
+            width: 1903px;
+            height: 936px;
+        }
+
     </style>
 </head>
 <body>
-<canvas id="myCanvas"></canvas>
+<div id="foreground"> </div>
+<!--<canvas id="myCanvas"></canvas>-->
 <audio id="pewSound" src="images/pew.mp3"></audio>
 
 <script src="test.js"></script>

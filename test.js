@@ -1,9 +1,11 @@
-const canvas = document.getElementById('myCanvas');
 window.innerWidth = screen.availWidth;
 window.innerHeight = screen.availHeight;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const ctx = canvas.getContext('2d');
+
+// const canvas = document.getElementById('myCanvas');
+// canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;
+// const ctx = canvas.getContext('2d');
+
 const pew = document.getElementById("pewSound");
 const dies = document.getElementById("dieSound");
 
@@ -41,6 +43,7 @@ class Duck {
         this.duckDiv.style.top = y + 'px';
         this.duckDiv.style.width = w + 'px';
         this.duckDiv.style.height = w + 'px';
+
 
         this.duckImg = document.createElement('img');
         this.duckImg.src = 'images/brown_duck.gif';
@@ -81,10 +84,10 @@ class Duck {
         return (dist(mouseX, mouseY, this.x + this.gooseWidth/2, this.y+ this.gooseWidth/2)< this.gooseWidth/2);
     }
     checkEdges() {
-        if (this.x > 1850 || this.x < 0) {
+        if (this.x > 1810 || this.x < 0) {
             this.dirx = -this.dirx;
         }
-        if (this.y > 950|| this.y < 0) {
+        if (this.y > 820|| this.y < 0) {
             this.diry = -this.diry;
         }
     }
@@ -114,7 +117,7 @@ function dist(x1, y1, x2, y2) {
 }
 
 function drawDucks() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < ducks.length; i++) {
         ducks[i].move();
@@ -136,8 +139,10 @@ for (let i = 0; i < 20; i++) {
 }
 
 addEventListener("mousedown", function (event) {
-    mouseX = event.clientX - canvas.offsetLeft;
-    mouseY = event.clientY - canvas.offsetTop;
+    // mouseX = event.clientX - canvas.offsetLeft;
+    // mouseY = event.clientY - canvas.offsetTop;
+    mouseX = event.clientX ;
+    mouseY = event.clientY;
     console.log(mouseX + " & " + mouseY);
     for (var i = ducks.length - 1; i > -1; i--) {
         if (ducks[i].clickMe()) {
