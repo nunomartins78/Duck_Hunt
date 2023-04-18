@@ -18,8 +18,22 @@ const blueDuckImg = new Image();
 blueDuckImg.src = 'images/blue_duck.gif';
 const redDuckImg = new Image();
 redDuckImg.src = 'images/red_duck.gif';
-const backgroundImage = new Image();
-backgroundImage.src = 'images/background-old.png';
+
+let randomSky= Math.floor(Math.random() * 3) + 1;
+switch (randomSky) {
+    case 1:
+        document.body.style.backgroundImage = "url('images/sky_day.png')";
+        break;
+    case 2:
+        document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
+        break;
+    case 3:
+        document.body.style.backgroundImage = "url('images/sky_night.png')";
+        break;
+    default:
+        // handle unexpected case
+        break;
+}
 
 let mouseX;
 let mouseY;
