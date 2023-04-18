@@ -1,33 +1,61 @@
-const canvas = document.getElementById('myCanvas');
 window.innerWidth = screen.availWidth;
 window.innerHeight = screen.availHeight;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const ctx = canvas.getContext('2d');
+
+// const canvas = document.getElementById('myCanvas');
+// canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;
+// const ctx = canvas.getContext('2d');
+
 const pew = document.getElementById("pewSound");
 const dies = document.getElementById("dieSound");
+const volumeThreshold = 1;
 
 const ducks = [];
 const deadDucks = [];
 const duckImg = new Image();
 duckImg.src = 'images/brown_duck.gif';
+const blueDuckImg = new Image();
+blueDuckImg.src = 'images/blue_duck.gif';
+const redDuckImg = new Image();
+redDuckImg.src = 'images/red_duck.gif';
+const solidForeground = new Image();
+solidForeground.src = 'images/newForeground.png'
+let score = 0;
+let bullets = 15;
+const scoreBoard = document.getElementById('scoreBoard');
+scoreBoard.innerText = score;
+const bulletDisplay = document.getElementById('bulletDisplay');
+bulletDisplay.innerText = bullets;
+
+let randomSky= Math.floor(Math.random() * 3) + 1;
+switch (randomSky) {
+    case 1:
+        document.body.style.backgroundImage = "url('images/sky_day.png')";
+        break;
+    case 2:
+        document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
+        break;
+    case 3:
+        document.body.style.backgroundImage = "url('images/sky_night.png')";
+        break;
+    default:
+        // handle unexpected case
+        break;
+}
 
 let mouseX;
 let mouseY;
 
-const backgroundImage = new Image();
-backgroundImage.src = 'images/background-old.png';
-
-
 class Duck {
-    constructor(x, y, w) {
+    constructor(x, y, w, colour) {
         this.x = x;
         this.y = y;
+        this.colour = colour;
         this.previousX = x;
         this.previousY = y;
         this.gooseWidth = w;
         const angle = Math.random() * 2 * Math.PI;
-        this.speed = 3; // ad   just this to change the speed of the ducks
+        this.speed = 2; // ad   just this to change the speed of the ducks
         this.dirx = this.speed * Math.cos(angle);
         this.diry = this.speed * Math.sin(angle);
 
@@ -42,8 +70,20 @@ class Duck {
         this.duckDiv.style.width = w + 'px';
         this.duckDiv.style.height = w + 'px';
 
+
         this.duckImg = document.createElement('img');
-        this.duckImg.src = 'images/brown_duck.gif';
+
+        switch (this.colour){
+            case "red":
+                this.duckImg.src = 'images/red_duck.gif';
+                break;
+            case "blue":
+                this.duckImg.src = 'images/blue_duck.gif';
+                break;
+            case "brown":
+                this.duckImg.src = 'images/brown_duck.gif';
+                break;
+        }
 
         this.duckDies = document.createElement("audio");
         this.duckDies.src = "images/dies.mp3";
@@ -75,21 +115,22 @@ class Duck {
         this.y += -this.diry;
         // this.duckImg.src = 'images/brown_duck_falling.gif';
         this.duckDiv.style.top = this.y + 'px';
+
     }
 
     clickMe(){
         return (dist(mouseX, mouseY, this.x + this.gooseWidth/2, this.y+ this.gooseWidth/2)< this.gooseWidth/2);
     }
     checkEdges() {
-        if (this.x > 1850 || this.x < 0) {
+        if (this.x > 1810 || this.x < 0) {
             this.dirx = -this.dirx;
         }
-        if (this.y > 950|| this.y < 0) {
+        if (this.y > 820|| this.y < 0) {
             this.diry = -this.diry;
         }
     }
     checkGround() {
-        if (this.y > 950|| this.y < 0) {
+        if (this.y > 820|| this.y < 0) {
             this.duckDiv.remove();
             // deadDucks.splice(0,1);
 
@@ -114,7 +155,7 @@ function dist(x1, y1, x2, y2) {
 }
 
 function drawDucks() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < ducks.length; i++) {
         ducks[i].move();
@@ -131,26 +172,78 @@ function drawDucks() {
     }
 }
 
-for (let i = 0; i < 20; i++) {
-    ducks.push(new Duck(900, 525, 100));
+for (let i = 0; i < 5; i++) {
+    ducks.push(new Duck(900, 800, 100,"brown"));
 }
 
-addEventListener("mousedown", function (event) {
-    mouseX = event.clientX - canvas.offsetLeft;
-    mouseY = event.clientY - canvas.offsetTop;
+for (let i = 0; i < 5; i++) {
+    ducks.push(new Duck(900, 800, 100,"blue"));
+}
+
+for (let i = 0; i < 5; i++) {
+    ducks.push(new Duck(900, 800, 100,"red"));
+}
+
+document.addEventListener("mousedown", function (event) {
+    // mouseX = event.clientX - canvas.offsetLeft;
+    // mouseY = event.clientY - canvas.offsetTop;
+    // if (event.target.closest("#foreground")) return;
+    mouseX = event.clientX ;
+    mouseY = event.clientY;
+
+    bullets--;
+    bulletDisplay.innerText = bullets;
+    checkBullets();
+
     console.log(mouseX + " & " + mouseY);
-    for (var i = ducks.length - 1; i > -1; i--) {
+    for (let i = ducks.length - 1; i > -1; i--) {
         if (ducks[i].clickMe()) {
             pew.volume = 1;
             pew.play();
 
+            switch (ducks[i].colour){
+                case "brown":
+                    score +=100;
+                    break;
+                case "blue":
+                    score +=300;
+                    break;
+                case "red":
+                    score +=500;
+                    break;
+            }
+
+            scoreBoard.innerText = score;
+
             ducks[i].duckDiv.id = 'dead';
-            ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
+            switch (ducks[i].colour){
+                case "red":
+                    ducks[i].duckImg.src = 'images/red_duck_shot.png';
+                    break;
+                case "blue":
+                    ducks[i].duckImg.src = 'images/blue_duck_shot.png';
+                    break;
+                case "brown":
+                    ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
+                    break;
+            };
             setTimeout(function (duckImg, duckDies) {
 
-                duckImg.src = 'images/brown_duck_falling.gif';
+                switch (ducks[i].colour){
+                    case "red":
+                        duckImg.src = 'images/red_duck_falling.gif';
+                        break;
+                    case "blue":
+                        duckImg.src = 'images/blue_duck_falling.gif';
+                        break;
+                    case "brown":
+                        duckImg.src = 'images/brown_duck_falling.gif';
+                        break;
+                };
+                pew.volume = 1;
                 duckDies.volume = 0.05;
                 duckDies.play();
+
 
             }, 550, ducks[i].duckImg, ducks[i].duckDies);
             deadDucks.push(ducks[i]);
@@ -161,4 +254,20 @@ addEventListener("mousedown", function (event) {
     }
 });
 
-setInterval(drawDucks, 10);
+function checkBullets(){
+    if (bullets === 0){
+        console.log('game over!')
+    }
+}
+
+pew.addEventListener("timeupdate", function() {
+    if (pew.volume < volumeThreshold) {
+        pew.volume = 1;
+    }
+});
+
+function audioVolume() {
+    pew.volume = 1;
+}
+
+setInterval(drawDucks, audioVolume, 10);
