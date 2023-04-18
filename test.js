@@ -8,10 +8,13 @@ window.innerHeight = screen.availHeight;
 
 const pew = document.getElementById("pewSound");
 const dies = document.getElementById("dieSound");
+const nuke = document.getElementById("nuke");
+const explosion = document.getElementById("explosion");
 const volumeThreshold = 1;
 
 const ducks = [];
 const deadDucks = [];
+
 const duckImg = new Image();
 duckImg.src = 'images/brown_duck.gif';
 const blueDuckImg = new Image();
@@ -20,6 +23,7 @@ const redDuckImg = new Image();
 redDuckImg.src = 'images/red_duck.gif';
 const solidForeground = new Image();
 solidForeground.src = 'images/newForeground.png'
+const foreground = document.getElementById('foreground');
 let score = 0;
 let bullets = 15;
 const scoreBoard = document.getElementById('scoreBoard');
@@ -55,7 +59,7 @@ class Duck {
         this.previousY = y;
         this.gooseWidth = w;
         const angle = Math.random() * 2 * Math.PI;
-        this.speed = 2; // ad   just this to change the speed of the ducks
+        this.speed = 3; // ad   just this to change the speed of the ducks
         this.dirx = this.speed * Math.cos(angle);
         this.diry = this.speed * Math.sin(angle);
 
@@ -183,53 +187,48 @@ for (let i = 0; i < 5; i++) {
 for (let i = 0; i < 5; i++) {
     ducks.push(new Duck(900, 800, 100,"red"));
 }
-
 document.addEventListener("mousedown", function (event) {
     // mouseX = event.clientX - canvas.offsetLeft;
     // mouseY = event.clientY - canvas.offsetTop;
     // if (event.target.closest("#foreground")) return;
+    if (event.target === bulletDisplay) {
+        nuke.play();
+        setTimeout(function () {
+         explosion.play();
+        }, 2000);
+        foreground.style.backgroundImage = "url('images/deadForeground.png')";
+        nukeTheBurbs();
+        return; // Excludes the excluded div from the event listener
+    }
+
     mouseX = event.clientX ;
     mouseY = event.clientY;
-
     bullets--;
     bulletDisplay.innerText = bullets;
     checkBullets();
-
     console.log(mouseX + " & " + mouseY);
     for (let i = ducks.length - 1; i > -1; i--) {
         if (ducks[i].clickMe()) {
             pew.volume = 1;
             pew.play();
-
             switch (ducks[i].colour){
                 case "brown":
+                    ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
                     score +=100;
                     break;
                 case "blue":
+                    ducks[i].duckImg.src = 'images/blue_duck_shot.png';
                     score +=300;
                     break;
                 case "red":
+                    ducks[i].duckImg.src = 'images/red_duck_shot.png';
                     score +=500;
                     break;
             }
-
             scoreBoard.innerText = score;
-
             ducks[i].duckDiv.id = 'dead';
-            switch (ducks[i].colour){
-                case "red":
-                    ducks[i].duckImg.src = 'images/red_duck_shot.png';
-                    break;
-                case "blue":
-                    ducks[i].duckImg.src = 'images/blue_duck_shot.png';
-                    break;
-                case "brown":
-                    ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
-                    break;
-            };
-            setTimeout(function (duckImg, duckDies) {
-
-                switch (ducks[i].colour){
+            setTimeout(function (duckImg, duckDies, duck) {
+                switch (duck.colour){
                     case "red":
                         duckImg.src = 'images/red_duck_falling.gif';
                         break;
@@ -243,16 +242,13 @@ document.addEventListener("mousedown", function (event) {
                 pew.volume = 1;
                 duckDies.volume = 0.05;
                 duckDies.play();
-
-
-            }, 550, ducks[i].duckImg, ducks[i].duckDies);
+            }, 550, ducks[i].duckImg, ducks[i].duckDies, ducks[i]);
             deadDucks.push(ducks[i]);
             ducks.splice(i, 1);
-
-            break;
         }
     }
 });
+
 
 function checkBullets(){
     if (bullets === 0){
@@ -269,5 +265,45 @@ pew.addEventListener("timeupdate", function() {
 function audioVolume() {
     pew.volume = 1;
 }
+
+function nukeTheBurbs() {
+    for (let i = 0; i <= ducks.length;) {
+        switch (ducks[i].colour) {
+            case "brown":
+                ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
+                score += 100;
+                break;
+            case "blue":
+                ducks[i].duckImg.src = 'images/blue_duck_shot.png';
+                score += 300;
+                break;
+            case "red":
+                ducks[i].duckImg.src = 'images/red_duck_shot.png';
+                score += 500;
+                break;
+        }
+        scoreBoard.innerText = score;
+        ducks[i].duckDiv.id = 'dead';
+        setTimeout(function (duckImg, duckDies, ducks) {
+            switch (ducks.colour) {
+                case "red":
+                    duckImg.src = 'images/red_duck_falling.gif';
+                    break;
+                case "blue":
+                    duckImg.src = 'images/blue_duck_falling.gif';
+                    break;
+                case "brown":
+                    duckImg.src = 'images/brown_duck_falling.gif';
+                    break;
+            };
+            pew.volume = 1;
+            duckDies.volume = 0.05;
+            duckDies.play();
+        }, 550, ducks[i].duckImg, ducks[i].duckDies, ducks[i]);
+        deadDucks.push(ducks[i]);
+        ducks.splice(i, 1);
+    }
+}
+
 
 setInterval(drawDucks, audioVolume, 10);
