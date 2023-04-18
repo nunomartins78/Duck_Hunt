@@ -152,7 +152,7 @@ function drawDucks() {
 }
 
 for (let i = 0; i < 20; i++) {
-    ducks.push(new Duck(900, 525, 100));
+    ducks.push(new Duck(900, 800, 100));
 }
 
 document.addEventListener("mousedown", function (event) {
@@ -188,8 +188,12 @@ document.addEventListener("mousedown", function (event) {
 });
 pew.addEventListener("timeupdate", function() {
     if (pew.volume < volumeThreshold) {
-        pew.volume = 1; // set volume to maximum level
+        pew.volume = 1;
     }
 });
 
-setInterval(drawDucks, 10);
+function audioVolume() {
+    pew.volume = 1;
+}
+
+setInterval(drawDucks, audioVolume, 10);
