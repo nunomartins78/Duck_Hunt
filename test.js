@@ -33,6 +33,8 @@ scoreBoard.innerText = score;
 const bulletDisplay = document.getElementById('bulletDisplay');
 bulletDisplay.innerText = bullets;
 const kaboomBaby = document.getElementById('kaboomBaby');
+const dog = document.getElementById('dog');
+
 
 let randomSky= Math.floor(Math.random() * 3) + 1;
 switch (randomSky) {
@@ -370,6 +372,14 @@ function nukeTheBurbs() {
         ducks.splice(i, 1);
     }
 }
+
+dog.addEventListener('animationend', () => {
+    // Add the dogJump animation to the element
+    dog.style.animationDelay = '2s';
+    dog.style.animation = 'dogJump 5s forwards';
+    /*change Z index*/
+});
+
 
 newGame();
 

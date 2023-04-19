@@ -62,6 +62,45 @@
             height: 936px;
         }
 
+        #dog{
+            display: flex;
+            position: absolute;
+            background-image: url("images/dog_walking.gif");
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 3;
+            width: 10%;
+            height: 20%;
+            top: 650px;
+            left: 70px;
+            animation-name: dogMove;
+            animation-duration: 7s;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes dogMove {
+            from {
+                left: 70px;
+            }
+            to {
+                left: 952px;
+            }
+        }
+
+        @keyframes dogJump{
+            from{
+                background-image: url("images/dog_jumping.gif");
+                left: 952px;
+                bottom: 30px;
+            }
+            to{
+                left: 952px;
+                bottom: 80px;
+            }
+
+
+        }
+
     </style>
 </head>
 <body id="body">
@@ -69,6 +108,7 @@
 <div id="scoreBoard"> </div>
 <div id="bulletDisplay"> </div>
 <div id="kaboomBaby" style="display:none"></div>
+<div id="dog"></div>
 <!--<canvas id="myCanvas"></canvas>-->
 <audio id="pewSound" src="images/pew.mp3"></audio>
 <audio id="nuke" src="images/nuke.mp3"></audio>
