@@ -33,6 +33,7 @@ scoreBoard.innerText = score;
 const bulletDisplay = document.getElementById('bulletDisplay');
 bulletDisplay.innerText = bullets;
 const kaboomBaby = document.getElementById('kaboomBaby');
+const mushroomCloud = document.getElementById('mushroomCloud');
 const dog = document.getElementById('dog');
 
 
@@ -249,8 +250,10 @@ document.addEventListener("mousedown", function (event) {
     // mouseY = event.clientY - canvas.offsetTop;
     // if (event.target.closest("#foreground")) return;
     if (event.target === bulletDisplay) {
-        kaboomBaby.style.display="block";
+        mushroomCloud.style.display = "block";
+        kaboomBaby.style.display = "block";
         nuke.play();
+        dog.style.display = "none"
         setTimeout(function () {
             kaboomBaby.style.display="none";
             explosion.play();
@@ -269,6 +272,7 @@ document.addEventListener("mousedown", function (event) {
     console.log(mouseX + " & " + mouseY);
     pew.volume = 1;
     pew.play();
+    let tempDucks = ducks.length;
     for (let i = ducks.length - 1; i > -1; i--) {
         if (ducks[i].clickMe()) {
             colouredDucks(i);
@@ -290,6 +294,9 @@ document.addEventListener("mousedown", function (event) {
             }, 550, ducks[i].duckImg, ducks[i].duckDies, ducks[i]);
             deadDucks.push(ducks[i]);
             ducks.splice(i, 1);
+            dogDucks();
+        } else if (tempDucks === ducks.length) {
+            dogLaugh();
         }
     }
     endRoundCheck();
@@ -386,19 +393,28 @@ function nukeTheBurbs() {
 }
 
 dog.addEventListener('animationend', () => {
-    // Add the dogJump animation to the element
     dog.style.animationDelay = '0.5s';
     dog.style.animation = 'dogJump 2s forwards';
    setTimeout(function () {
        dog.style.zIndex = "1";
+       dog.style.display = "none";
    }, 150)
 });
 
 function resetDog() {
+    dog.style.display = "block";
     dog.style.zIndex = "3";
     dog.style.animation = 'dogMove 7s forwards';
 }
+function dogLaugh() {
+    dog.style.display = "block";
+    dog.style.animation = 'dogLaugh 3s forwards';
+}
 
+function dogDucks() {
+    dog.style.display = "block";
+    dog.style.animation = 'dogDucks 3s forwards';
+}
 
 newGame();
 

@@ -1,117 +1,21 @@
 <!DOCTYPE html>
 <html lang="">
-<head>
-    <meta charset="UTF-8">
-    <title>Duck Hunt</title>
-    <style>
-        body {
-            margin: 0;
-            width: 1903px;
-            height: 936px;
-            /*background-image: url("images/sky_night.png");*/
-            background-repeat: no-repeat;
-            background-size: 1903px 936px;
-        }
-        #foreground {
-            position: absolute;
-            background-image: url("images/newForeground2.png");
-            background-size: contain;
-            z-index: 2;
-            width: 1903px;
-            height: 936px;
-        }
-
-        #bulletDisplay{
-            display: flex;
-            position: absolute;
-            background-image: url("images/score-counter.png");
-            background-size: 93px 63px;
-            z-index: 3;
-            width: 93px;
-            height: 63px;
-            top: 830px;
-            left: 55px;
-            font-size: 30pt;
-            color: white;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #scoreBoard{
-            display: flex;
-            position: absolute;
-            background-image: url("images/score-counter.png");
-            background-size: 158px 63px;
-            z-index: 3;
-            width: 158px;
-            height: 63px;
-            top: 830px;
-            left: 1700px;
-            font-size: 30pt;
-            color: white;
-            justify-content: center;
-            align-items: center;
-        }
-        #kaboomBaby{
-            position: sticky;
-            background-image: url("images/nuke.gif");
-            background-size: 1903px 936px;
-            z-index: 0;
-            width: 1903px;
-            height: 936px;
-        }
-
-        #dog{
-            display: flex;
-            position: absolute;
-            background-image: url("images/dog_walking.gif");
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 3;
-            width: 10%;
-            height: 20%;
-            top: 650px;
-            left: 70px;
-            animation-name: dogMove;
-            animation-duration: 7s;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes dogMove {
-            from {
-                left: 70px;
-            }
-            to {
-                left: 952px;
-            }
-        }
-
-        @keyframes dogJump{
-            from{
-                background-image: url("images/dog_jumping.gif");
-                left: 952px;
-                bottom: 30px;
-            }
-            to{
-                left: 952px;
-                bottom: 80px;
-            }
-
-
-        }
-
-    </style>
-</head>
-<body id="body">
-<div id="foreground"> </div>
-<div id="scoreBoard"> </div>
-<div id="bulletDisplay"> </div>
-<div id="kaboomBaby" style="display:none"></div>
-<div id="dog"></div>
-<!--<canvas id="myCanvas"></canvas>-->
-<audio id="pewSound" src="images/pew.mp3"></audio>
-<audio id="nuke" src="images/nuke.mp3"></audio>
-<audio id="explosion" src="images/nuke2.mp3"></audio>
-<script src="test.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Duck Hunt</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+        <body id="body">
+        <div id="foreground"> </div>
+        <div id="scoreBoard"> </div>
+        <div id="bulletDisplay"> </div>
+        <div id="kaboomBaby" style="display:none"></div>
+        <div id="mushroomCloud" style="display:none"></div>
+        <div id="dog" style="display:none"></div>
+        <!--<canvas id="myCanvas"></canvas>-->
+        <audio id="pewSound" src="images/pew.mp3"></audio>
+        <audio id="nuke" src="images/nuke.mp3"></audio>
+        <audio id="explosion" src="images/nuke2.mp3"></audio>
+        <script src="test.js"></script>
+    </body>
 </html>
