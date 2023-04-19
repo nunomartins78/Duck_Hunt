@@ -36,21 +36,21 @@ const kaboomBaby = document.getElementById('kaboomBaby');
 const dog = document.getElementById('dog');
 
 
-let randomSky= Math.floor(Math.random() * 3) + 1;
-switch (randomSky) {
-    case 1:
-        document.body.style.backgroundImage = "url('images/sky_day.png')";
-        break;
-    case 2:
-        document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
-        break;
-    case 3:
-        document.body.style.backgroundImage = "url('images/sky_night.png')";
-        break;
-    default:
-        // handle unexpected case
-        break;
-}
+// let randomSky= Math.floor(Math.random() * 3) + 1;
+// switch (randomSky) {
+//     case 1:
+//         document.body.style.backgroundImage = "url('images/sky_day.png')";
+//         break;
+//     case 2:
+//         document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
+//         break;
+//     case 3:
+//         document.body.style.backgroundImage = "url('images/sky_night.png')";
+//         break;
+//     default:
+//         // handle unexpected case
+//         break;
+// }
 
 let mouseX;
 let mouseY;
@@ -228,9 +228,11 @@ function round5 (){
 
 function finalRound(){
     /* BOSS */
+    console.log("END")
 
 }
 function newGame(){
+    document.body.style.backgroundImage = "url('images/sky_day.png')";
     resetDog()
     setTimeout(round1,7000);
 }
@@ -297,22 +299,27 @@ function endRoundCheck(){
     if (ducks.length <= 0){
         switch (activeRound){
             case 1:
+                document.body.style.backgroundImage = "url('images/sky_day.png')";
                 resetDog()
                 setTimeout(round2,7000);
                 break;
             case 2:
                 resetDog()
+                document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
                 setTimeout(round3,7000);
                 break;
             case 3:
                 resetDog()
+                document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
                 setTimeout(round4,7000);
                 break;
             case 4:
                 resetDog()
+                document.body.style.backgroundImage = "url('images/sky_night.png')";
                 setTimeout(round5,7000);
                 break;
             case 5:
+                document.body.style.backgroundImage = "url('images/sky_night.png')";
                 finalRound();
                 break;
         }
