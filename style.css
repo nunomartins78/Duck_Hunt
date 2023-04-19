@@ -1,86 +1,154 @@
-body{
-    background-image: url("images/background-old.png");
-    background-size: cover;
+body {
+    margin: 0;
+    width: 1903px;
+    height: 936px;
+    /*background-image: url("images/sky_night.png");*/
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: bottom;
+    background-size: 1903px 936px;
 }
-
-img{
-    /*width: available;*/
+#foreground {
     position: absolute;
-    bottom: 0;
+    background-image: url("images/newForeground2.png");
+    background-size: contain;
+    z-index: 2;
+    width: 1903px;
+    height: 936px;
 }
 
-#bird1{
-    transform:rotateY(180deg);
-    animation-name: bird1;
+#bulletDisplay{
+    display: flex;
+    position: absolute;
+    background-image: url("images/score-counter.png");
+    background-size: 93px 63px;
+    z-index: 3;
+    width: 93px;
+    height: 63px;
+    top: 830px;
+    left: 55px;
+    font-size: 30pt;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+#scoreBoard{
+    display: flex;
+    position: absolute;
+    background-image: url("images/score-counter.png");
+    background-size: 158px 63px;
+    z-index: 3;
+    width: 158px;
+    height: 63px;
+    top: 830px;
+    left: 1700px;
+    font-size: 30pt;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+#kaboomBaby{
+    position: sticky;
+    background-image: url("images/flash.gif");
+    background-size: 1903px 936px;
+    z-index: 5;
+    width: 1903px;
+    height: 936px;
+}
+#mushroomCloud{
+    position: absolute;
+    background-image: url("images/blast.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 0;
+    width: 2000px;
+    height: 2000px;
+    top: 269px;
+    left: 10px;
+    animation-name: movement;
     animation-duration: 5s;
-    animation-iteration-count: infinite;
-}
-#bird2 {
-
-    transform: rotateY(180deg);
-    animation-name: bird2;
-    animation-duration: 5s;
-}
-#bird3 {
-
-
-}
-:root{
-    --random-right-10: 10%;
-    --random-right-30: 30%;
-    --random-right-50: 50%;
-    --random-right-70: 70%;
-    --random-right-90: 90%;
-    --random-right-100: 100%;
-    --random-right-40: 40%;
-    --random-right-20: 20%;
-    --random-right-80: 80%;
-
-
-    --random-bottom-10: 10%;
-    --random-bottom-30: 30;
-    --random-bottom-50: 50%;
-    --random-bottom-70: 70%;
-    --random-bottom-90: 90%;
-    --random-bottom-100: 100%;
-    --random-bottom-40: 40%;
-    --random-bottom-20: 20%;
-    --random-bottom-80: 80%;
+    transform-style: preserve-3d;
 }
 
-@keyframes bird1 {
-
-    10% {right: var(--random-right-10); bottom: var(--random-bottom-10);}
-    30% {right: var(--random-right-30); bottom: var(--random-bottom-30);}
-    50% {right: var(--random-right-50); bottom: var(--random-bottom-50);}
-    70% {right: var(--random-right-70); bottom: var(--random-bottom-70);}
-    90% {right: var(--random-right-90); bottom: var(--random-bottom-90);}
-    100% {right: var(--random-right-100); bottom: var(--random-bottom-100);}
+#dog{
+    display: flex;
+    position: absolute;
+    background-image: url("images/dog_walking.gif");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 3;
+    width: 10%;
+    height: 20%;
+    top: 650px;
+    left: 70px;
+    animation-name: dogMove;
+    animation-duration: 7s;
+    transform-style: preserve-3d;
 }
 
-@keyframes bird2 {
-    5% {right: 5%; bottom: 5%;}
-    10% {right: 10%; bottom: 10%;}
-    15% {right: 15%; bottom: 15%;}
-    20% {right: 20%; bottom: 20%;}
-    25% {right: 25%; bottom: 25%;}
-    30% {right: 30%; bottom: 30%;}
-    35% {right: 35%; bottom: 35%;}
-    40% {right: 40%; bottom: 40%;}
-    45% {right: 45%; bottom: 45%;}
-    50% {right: 50%; bottom: 50%;}
-    55% {right: 55%; bottom: 55%;}
-    60% {right: 60%; bottom: 60%;}
-    65% {right: 65%; bottom: 65%;}
-    70% {right: 70%; bottom: 70%;}
-    75% {right: 75%; bottom: 75%;}
-    80% {right: 80%; bottom: 80%;}
-    85% {right: 85%; bottom: 85%;}
-    90% {right: 90%; bottom: 90%;}
-    95% {right: 95%; bottom: 95%;}
-    100% {right: 100%; bottom: 100%;}
+@keyframes dogMove {
+    from {
+        left: 70px;
+    }
+    to {
+        left: 802px;
+    }
+}
 
+@keyframes dogJump{
+
+    from{
+        background-image: url("images/dog_jumping.gif");
+        left: 902px;
+        bottom: 30px;
+    }
+    to{
+        left: 902px;
+        bottom: 80px;
+    }
+}
+@keyframes dogLaugh{
+    0%{
+        background-image: url("images/dog_laugh.gif");
+        left: 902px;
+        top: 650px;
+    }
+    50%{
+        background-image: url("images/dog_laugh.gif");
+        left: 902px;
+        top: 550px;
+    }
+    100%{
+        background-image: url("images/dog_laugh.gif");
+        left: 902px;
+        top: 650px;
+    }
+}
+@keyframes dogDucks{
+    0%{
+        background-image: url("images/dog_1_duck.png");
+        left: 902px;
+        top: 650px;
+    }
+    50%{
+        background-image: url("images/dog_1_duck.png");
+        left: 902px;
+        top: 525px;
+    }
+    100%{
+        background-image: url("images/dog_1_duck.png");
+        left: 902px;
+        top: 650px;
+    }
+}
+@keyframes movement{
+    from{
+        transform: translate(269px, 230px);
+        width: 1500px;
+        height: 1500px
+    }
+    to{
+        transform: translate(0px, 0px);
+        width: 2000px;
+        height: 2000px;
+    }
 }
