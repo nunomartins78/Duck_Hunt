@@ -82,15 +82,15 @@ class Duck {
         switch (this.colour){
             case "red":
                 this.duckImg.src = 'images/red_duck.gif';
-                this.speed = 3;
+                this.speed = 5;
                 break;
             case "blue":
                 this.duckImg.src = 'images/blue_duck.gif';
-                this.speed = 2;
+                this.speed = 4;
                 break;
             case "brown":
                 this.duckImg.src = 'images/brown_duck.gif';
-                this.speed = 1;
+                this.speed = 3;
                 break;
         }
 
@@ -137,12 +137,12 @@ class Duck {
         if (this.x > 1810 || this.x < 0) {
             this.dirx = -this.dirx;
         }
-        if (this.y > 820|| this.y < 0) {
+        if (this.y > 780|| this.y < 0) {
             this.diry = -this.diry;
         }
     }
     checkGround() {
-        if (this.y > 820|| this.y < 0) {
+        if (this.y > 780|| this.y < 0) {
             this.duckDiv.remove();
             // deadDucks.splice(0,1);
 
@@ -231,13 +231,14 @@ function finalRound(){
 
 }
 function newGame(){
-    round1();
+    resetDog()
+    setTimeout(round1,7000);
 }
 
 
 function createDucks (duckNumber, colour){
     for (let i = 0; i < duckNumber; i++) {
-        ducks.push(new Duck(900, 800, 100, colour));
+        ducks.push(new Duck(950, 730, 100, colour));
     }
 }
 
@@ -296,16 +297,20 @@ function endRoundCheck(){
     if (ducks.length <= 0){
         switch (activeRound){
             case 1:
-                round2();
+                resetDog()
+                setTimeout(round2,7000);
                 break;
             case 2:
-                round3();
+                resetDog()
+                setTimeout(round3,7000);
                 break;
             case 3:
-                round4();
+                resetDog()
+                setTimeout(round4,7000);
                 break;
             case 4:
-                round5();
+                resetDog()
+                setTimeout(round5,7000);
                 break;
             case 5:
                 finalRound();
@@ -375,10 +380,17 @@ function nukeTheBurbs() {
 
 dog.addEventListener('animationend', () => {
     // Add the dogJump animation to the element
-    dog.style.animationDelay = '2s';
-    dog.style.animation = 'dogJump 5s forwards';
-    /*change Z index*/
+    dog.style.animationDelay = '0.5s';
+    dog.style.animation = 'dogJump 2s forwards';
+   setTimeout(function () {
+       dog.style.zIndex = "1";
+   }, 150)
 });
+
+function resetDog() {
+    dog.style.zIndex = "3";
+    dog.style.animation = 'dogMove 7s forwards';
+}
 
 
 newGame();
