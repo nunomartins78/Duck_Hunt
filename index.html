@@ -54,11 +54,10 @@
             align-items: center;
         }
         #kaboomBaby{
-            display: flex;
-            position: center;
+            position: sticky;
             background-image: url("images/nuke.gif");
             background-size: 1903px 936px;
-            z-index: 5;
+            z-index: 0;
             width: 1903px;
             height: 936px;
         }
@@ -69,7 +68,7 @@
 <div id="foreground"> </div>
 <div id="scoreBoard"> </div>
 <div id="bulletDisplay"> </div>
-<div id="kaboomBaby"></div>
+<div id="kaboomBaby" style="display:none"></div>
 <!--<canvas id="myCanvas"></canvas>-->
 <audio id="pewSound" src="images/pew.mp3"></audio>
 <audio id="nuke" src="images/nuke.mp3"></audio>

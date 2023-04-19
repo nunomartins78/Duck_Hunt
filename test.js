@@ -30,6 +30,7 @@ const scoreBoard = document.getElementById('scoreBoard');
 scoreBoard.innerText = score;
 const bulletDisplay = document.getElementById('bulletDisplay');
 bulletDisplay.innerText = bullets;
+const kaboomBaby = document.getElementById('kaboomBaby');
 
 let randomSky= Math.floor(Math.random() * 3) + 1;
 switch (randomSky) {
@@ -192,9 +193,11 @@ document.addEventListener("mousedown", function (event) {
     // mouseY = event.clientY - canvas.offsetTop;
     // if (event.target.closest("#foreground")) return;
     if (event.target === bulletDisplay) {
+        kaboomBaby.style.display="block";
         nuke.play();
         setTimeout(function () {
-         explosion.play();
+            kaboomBaby.style.display.repeat(0);
+            explosion.play();
         }, 2000);
         foreground.style.backgroundImage = "url('images/deadForeground.png')";
         nukeTheBurbs();
