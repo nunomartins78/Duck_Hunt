@@ -69,30 +69,34 @@ body {
     transform-style: preserve-3d;
 }
 
+/*#dog{*/
+/*    display: flex;*/
+/*    position: absolute;*/
+/*    background-image: url("images/dog_walking.gif");*/
+/*    background-size: contain;*/
+/*    background-repeat: no-repeat;*/
+/*    z-index: 3;*/
+/*    width: 10%;*/
+/*    height: 20%;*/
+/*    top: 650px;*/
+/*    left: 70px;*/
+/*    animation-name: dogMove;*/
+/*    animation-duration: 7s;*/
+/*    transform-style: preserve-3d;*/
+/*}*/
+
 #dog{
-    display: flex;
     position: absolute;
-    background-image: url("images/dog_walking.gif");
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 3;
-    width: 10%;
-    height: 20%;
+    background: url('images/pixelArt.png') no-repeat -5px -3px;
+    background-size: 660% 500%;
     top: 650px;
     left: 70px;
+    width: 10%;
+    height: 20%;
+    z-index: 3;
     animation-name: dogMove;
     animation-duration: 7s;
     transform-style: preserve-3d;
-}
-
-#dawg{
-    position: absolute;
-    background: url('images/pixelArt.png') no-repeat -5px -1px;
-    top: 650px;
-    left: 70px;
-    width: 55px;
-    height: 50px;
-    z-index: 3;
 }
 
 @keyframes dogMove {
@@ -107,45 +111,38 @@ body {
 @keyframes dogJump{
 
     from{
-        background-image: url("images/dog_jumping.gif");
         left: 902px;
         bottom: 30px;
     }
     to{
         left: 902px;
-        bottom: 80px;
+        bottom: 200px;
     }
 }
 @keyframes dogLaugh{
     0%{
-        background-image: url("images/dog_laugh.gif");
         left: 902px;
         top: 650px;
     }
     50%{
-        background-image: url("images/dog_laugh.gif");
         left: 902px;
-        top: 550px;
+        top: 555px;
     }
     100%{
-        background-image: url("images/dog_laugh.gif");
         left: 902px;
         top: 650px;
     }
 }
 @keyframes dogDucks{
     0%{
-        background-image: url("images/dog_1_duck.png");
         left: 902px;
         top: 650px;
     }
     50%{
-        background-image: url("images/dog_1_duck.png");
         left: 902px;
-        top: 525px;
+        top: 545px;
     }
     100%{
-        background-image: url("images/dog_1_duck.png");
         left: 902px;
         top: 650px;
     }

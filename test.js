@@ -17,6 +17,8 @@ let activeRound = 0;
 const ducks = [];
 const deadDucks = [];
 
+let tIdDog;
+
 const duckImg = new Image();
 duckImg.src = 'images/brown_duck.gif';
 const blueDuckImg = new Image();
@@ -64,6 +66,7 @@ class Duck {
         this.previousX = x;
         this.previousY = y;
         this.gooseWidth = w;
+        this.tIdBird = 0;
         const angle = Math.random() * 2 * Math.PI;
 
         this.duckDiv = document.createElement('div');
@@ -235,7 +238,7 @@ function finalRound(){
 function newGame(){
     document.body.style.backgroundImage = "url('images/sky_day.png')";
     resetDog()
-    setTimeout(round1,7000);
+    setTimeout(round1,1000);
 }
 
 
@@ -393,33 +396,81 @@ function nukeTheBurbs() {
 }
 
 dog.addEventListener('animationend', () => {
-    dog.style.animationDelay = '0.5s';
-    dog.style.animation = 'dogJump 2s forwards';
-   setTimeout(function () {
-       dog.style.zIndex = "1";
-       dog.style.display = "none";
-   }, 150)
+
+    clearInterval(tIdDog);
+    dogJumpLoop();
+
+    setTimeout(function () {
+        dog.style.animation = 'dogJump 2s forwards';
+
+    }, 450)
+    setTimeout(function () {
+        dog.style.zIndex = "1";
+        dog.style.display = "none";
+        clearInterval(tIdDog);
+    }, 550)
+
 });
 
 function resetDog() {
+    clearInterval(tIdDog);
+    dogWalkLoop();
     dog.style.display = "block";
     dog.style.zIndex = "3";
-    dog.style.animation = 'dogMove 7s forwards';
+    dog.style.animation = 'dogMove 1s forwards';
 }
 function dogLaugh() {
+    clearInterval(tIdDog);
+    dogLaughLoop();
     dog.style.display = "block";
     dog.style.animation = 'dogLaugh 3s forwards';
 }
 
 function dogDucks() {
+    clearInterval(tIdDog);
+    document.getElementById("dog").style.backgroundPosition =
+        `-1080px -3px`;
     dog.style.display = "block";
     dog.style.animation = 'dogDucks 3s forwards';
 }
 
 newGame();
 
-setInterval(drawDucks, audioVolume, 10);
+setInterval(drawDucks, 10);
+setInterval(audioVolume, 10);
 
-function Dawg (){
-    document.getElementById("image").style.backgroundPosition = "-256px 0px";
+function dogWalkLoop() {
+    let position = 10;
+    tIdDog = setInterval ( () => {
+            document.getElementById("dog").style.backgroundPosition =
+                `-${position}px -3px`;
+            if (position < 813)
+            { position = position + 205;}
+            else
+            { position = 205;}
+        }, 200);
+}
+function dogJumpLoop() {
+    let position = 10;
+    tIdDog = setInterval ( () => {
+        document.getElementById("dog").style.backgroundPosition =
+            `-${position}px -210px`;
+        if (position < 213) {
+            position = position + 205;
+        } else {
+            position = 205;
+        }
+    }, 220);
+}
+function dogLaughLoop() {
+    let position = 600;
+    tIdDog = setInterval ( () => {
+        document.getElementById("dog").style.backgroundPosition =
+            `-${position}px -210px`;
+        if (position < 800) {
+            position = position + 205;
+        } else {
+            position = 600;
+        }
+    }, 220);
 }
