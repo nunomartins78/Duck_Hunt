@@ -81,20 +81,32 @@ class Duck {
         this.duckDiv.style.height = w + 'px';
 
 
-        this.duckImg = document.createElement('img');
+        this.duckImg = document.createElement('div');
 
         switch (this.colour){
             case "red":
-                this.duckImg.src = 'images/red_duck.gif';
+                clearInterval(this.tIdBird);
+                this.duckImg.style.background =  "url('images/pixelArt.png')";
+                this.duckImg.style.backgroundSize = '800% 700%';
+                this.duckImg.style.backgroundPosition = '0px -535px';
                 this.speed = 5;
+                redBirdFlyingLoop.call(this);
                 break;
             case "blue":
-                this.duckImg.src = 'images/blue_duck.gif';
+                clearInterval(this.tIdBird);
+                this.duckImg.style.background =  "url('images/pixelArt.png')";
+                this.duckImg.style.backgroundSize = '800% 700%';
+                this.duckImg.style.backgroundPosition = '-2px -430px';
                 this.speed = 4;
+                blueBirdFlyingLoop.call(this);
                 break;
             case "brown":
-                this.duckImg.src = 'images/brown_duck.gif';
+                clearInterval(this.tIdBird);
+                this.duckImg.style.background =  "url('images/pixelArt.png')";
+                this.duckImg.style.backgroundSize = '800% 700%';
+                this.duckImg.style.backgroundPosition = '-3px -330px';
                 this.speed = 3;
+                brownBirdFlyingLoop.call(this);
                 break;
         }
 
@@ -125,8 +137,8 @@ class Duck {
     }
 
     falling(){
-        this.duckImg.style.width = '65%';
-        this.duckImg.style.height = '100%';
+        // this.duckImg.style.width = '65%';
+        // this.duckImg.style.height = '100%';
         this.diry = -5;
         this.y += -this.diry;
         // this.duckImg.src = 'images/brown_duck_falling.gif';
@@ -278,17 +290,23 @@ document.addEventListener("mousedown", function (event) {
     let tempDucks = ducks.length;
     for (let i = ducks.length - 1; i > -1; i--) {
         if (ducks[i].clickMe()) {
-            colouredDucks(i);
+            shotDucks(i);
             setTimeout(function (duckImg, duckDies, duck) {
                 switch (duck.colour){
                     case "red":
-                        duckImg.src = 'images/red_duck_falling.gif';
+                        clearInterval(duck.tIdBird);
+                        duck.duckImg.style.backgroundPosition = '-350px -558px';
+                        // redBirdFallingLoop.call(duck);
                         break;
                     case "blue":
-                        duckImg.src = 'images/blue_duck_falling.gif';
+                        clearInterval(duck.tIdBird);
+                        duck.duckImg.style.backgroundPosition = '-350px -448px';
+                        // blueBirdFallingLoop.call(duck);
                         break;
                     case "brown":
-                        duckImg.src = 'images/brown_duck_falling.gif';
+                        clearInterval(duck.tIdBird);
+                        duck.duckImg.style.backgroundPosition = '-350px -338px';
+                        // brownBirdFallingLoop.call(duck);
                         break;
                 };
                 pew.volume = 1;
@@ -352,18 +370,21 @@ function audioVolume() {
     pew.volume = 1;
 }
 
-function colouredDucks(i) {
+function shotDucks(i) {
     switch (ducks[i].colour) {
         case "brown":
-            ducks[i].duckImg.src = 'images/brown_duck_shot.gif';
+            clearInterval(ducks[i].tIdBird);
+            ducks[i].duckImg.style.backgroundPosition = '-690px -338px';
             score += 100;
             break;
         case "blue":
-            ducks[i].duckImg.src = 'images/blue_duck_shot.png';
+            clearInterval(ducks[i].tIdBird);
+            ducks[i].duckImg.style.backgroundPosition = '-690px -438px';
             score += 300;
             break;
         case "red":
-            ducks[i].duckImg.src = 'images/red_duck_shot.png';
+            clearInterval(ducks[i].tIdBird);
+            ducks[i].duckImg.style.backgroundPosition = '-690px -558px';
             score += 500;
             break;
     }
@@ -373,7 +394,7 @@ function colouredDucks(i) {
 
 function nukeTheBurbs() {
     for (let i = 0; i <= ducks.length;) {
-        colouredDucks(i);
+        shotDucks(i);
         setTimeout(function (duckImg, duckDies, ducks) {
             switch (ducks.colour) {
                 case "red":
@@ -471,6 +492,44 @@ function dogLaughLoop() {
             position = position + 205;
         } else {
             position = 600;
+        }
+    }, 220);
+}
+
+function brownBirdFlyingLoop() {
+    let position = 0;
+    this.tIdBird = setInterval(() => {
+        this.duckImg.style.backgroundPosition =
+            `-${position}px -330px`;
+        if (position < 150) {
+            position = position + 93;
+        } else {
+            position = 0;
+        }
+    }, 220);
+}
+function blueBirdFlyingLoop() {
+    let position = 0;
+    this.tIdBird= setInterval ( () => {
+        this.duckImg.style.backgroundPosition =
+            `-${position}px -438px`;
+        if (position < 150) {
+            position = position + 92;
+        } else {
+            position = 0;
+        }
+    }, 220);
+}
+
+function redBirdFlyingLoop() {
+    let position = 0;
+    this.tIdBird = setInterval ( () => {
+        this.duckImg.style.backgroundPosition =
+            `-${position}px -548px`;
+        if (position < 150) {
+            position = position + 92;
+        } else {
+            position = 0;
         }
     }, 220);
 }
