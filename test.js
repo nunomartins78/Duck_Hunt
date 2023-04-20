@@ -419,3 +419,7 @@ function dogDucks() {
 newGame();
 
 setInterval(drawDucks, audioVolume, 10);
+
+function Dawg (){
+    document.getElementById("image").style.backgroundPosition = "-256px 0px";
+}
