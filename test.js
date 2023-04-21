@@ -42,54 +42,45 @@ class Duck {
 
         this.duckDiv = document.createElement('div');
         this.duckDiv.className = 'duck';
-        document.body.appendChild(this.duckDiv);
-
-        // Set the initial position of the duck using CSS
         this.duckDiv.style.position = 'absolute';
         this.duckDiv.style.left = x + 'px';
         this.duckDiv.style.top = y + 'px';
         this.duckDiv.style.width = w + 'px';
         this.duckDiv.style.height = w + 'px';
 
-
         this.duckImg = document.createElement('div');
-
+        this.duckImg.style.background =  "url('images/pixelArt.png')";
+        this.duckImg.style.backgroundSize = '800% 700%';
+        this.duckImg.style.width = this.gooseWidth + 'px';
+        this.duckImg.style.height = this.gooseWidth + 'px';
         switch (this.colour){
             case "red":
                 clearInterval(this.tIdBird);
-                this.duckImg.style.background =  "url('images/pixelArt.png')";
-                this.duckImg.style.backgroundSize = '800% 700%';
                 this.speed = 5;
                 redBirdFlyingLoop.call(this);
                 break;
             case "blue":
                 clearInterval(this.tIdBird);
-                this.duckImg.style.background =  "url('images/pixelArt.png')";
-                this.duckImg.style.backgroundSize = '800% 700%';
                 this.speed = 4;
                 blueBirdFlyingLoop.call(this);
                 break;
             case "brown":
                 clearInterval(this.tIdBird);
-                this.duckImg.style.background =  "url('images/pixelArt.png')";
-                this.duckImg.style.backgroundSize = '800% 700%';
                 this.speed = 3;
                 brownBirdFlyingLoop.call(this);
                 break;
         }
-
         this.dirx = this.speed * Math.cos(angle);
         this.diry = this.speed * Math.sin(angle);
 
         this.duckDies = document.createElement("audio");
         this.duckDies.src = "sound/dies.mp3";
-        this.duckImg.style.width = this.gooseWidth + 'px';
-        this.duckImg.style.height = this.gooseWidth + 'px';
+
+        document.body.appendChild(this.duckDiv);
         this.duckDiv.appendChild(this.duckImg);
         this.duckDiv.appendChild(this.duckDies);
         //duckOrientation(this.duckImg, this.x, this.y, this.previousX);
     }
-
     move() {
         this.previousX = this.x;
         this.previousY = this.y;
@@ -99,14 +90,11 @@ class Duck {
         this.duckDiv.style.top = this.y + 'px';
         duckOrientation(this.duckImg, this.x, this.y, this.previousX);
     }
-
     falling(){
         this.diry = -5;
         this.y += -this.diry;
         this.duckDiv.style.top = this.y + 'px';
-
     }
-
     clickMe(){
         return (dist(mouseX, mouseY, this.x + this.gooseWidth/2, this.y+ this.gooseWidth/2)< this.gooseWidth/2);
     }
@@ -127,7 +115,6 @@ class Duck {
 
 function duckOrientation(img, x, y, previousX) {
     if(previousX > x) {
-        // img.src = 'images/background-old.png';
         img.style.transform = 'scaleX(-1)';
     } else
         img.style.transform = 'scaleX(1)';
@@ -142,10 +129,8 @@ function drawDucks() {
     for (let i = 0; i < ducks.length; i++) {
         ducks[i].move();
         ducks[i].checkEdges();
-        // ducks[i].display();
     }
     for (let i = 0; i < deadDucks.length; i++) {
-        // deadDucks[i].falling();
         setTimeout(function() {
             deadDucks[i].falling();
         }, 500);
@@ -207,7 +192,6 @@ function newGame(){
     setTimeout(round1,7000);
 }
 
-
 function createDucks (duckNumber, colour){
     for (let i = 0; i < duckNumber; i++) {
         ducks.push(new Duck(950, 730, 100, colour));
@@ -215,7 +199,6 @@ function createDucks (duckNumber, colour){
 }
 
 document.addEventListener("mousedown", function (event) {
-
     if (event.target === bulletDisplay) {
         mushroomCloud.style.display = "block";
         kaboomBaby.style.display = "block";
@@ -227,7 +210,7 @@ document.addEventListener("mousedown", function (event) {
         }, 1500);
         foreground.style.backgroundImage = "url('images/deadForeground.png')";
         nukeTheBurbs();
-        return; // Excludes the excluded div from the event listener
+        return;
     }
 
     mouseX = event.clientX ;
