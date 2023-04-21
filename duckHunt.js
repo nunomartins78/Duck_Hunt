@@ -33,6 +33,21 @@ restart.style.background = "url('images/start.png')";
 let mouseX;
 let mouseY;
 
+let randomSky= Math.floor(Math.random() * 3) + 1;
+switch (randomSky) {
+    case 1:
+        document.body.style.backgroundImage = "url('images/sky_day.png')";
+        break;
+    case 2:
+        document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
+        break;
+    case 3:
+        document.body.style.backgroundImage = "url('images/sky_night.png')";
+        break;
+    default:
+        // handle unexpected case
+        break;
+}
 class Duck {
     constructor(x, y, w, colour) {
         this.x = x;
