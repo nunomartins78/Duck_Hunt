@@ -6,7 +6,9 @@ const pew = document.getElementById("pewSound");
 const dies = document.getElementById("dieSound");
 const nuke = document.getElementById("nuke");
 const explosion = document.getElementById("explosion");
+const frosty = document.getElementById("frostySound")
 const volumeThreshold = 1;
+let chanceOfAmongUs= 0;
 
 let activeRound = 0;
 
@@ -30,6 +32,8 @@ const gameOver = document.getElementById('gameOver');
 gameOver.style.background = "url('images/gameOver.png')";
 const restart = document.getElementById('restart');
 restart.style.background = "url('images/start.png')";
+const gameName = document.getElementById('gameName')
+const amongUsImage = document.getElementById('amongUs')
 
 let mouseX;
 let mouseY;
@@ -236,6 +240,7 @@ function newGame(){
     score = 0;
     scoreBoard.innerText = score;
     splashScreen.style.display = "none";
+    gameName.style.display = 'none';
     activeRound = 0;
     for (let i = ducks.length - 1; i > -1; i--){
         ducks[i].duckDiv.remove();
@@ -378,6 +383,7 @@ function audioVolume() {
 }
 
 function shotDucks(i) {
+    amongUs();
     switch (ducks[i].colour) {
         case "brown":
             clearInterval(ducks[i].tIdBird);
@@ -406,6 +412,18 @@ restart.addEventListener("mousedown", function(event){
         newGame();
     }
 })
+
+
+function amongUs(){
+    chanceOfAmongUs = Math.random()*100;
+    if (chanceOfAmongUs >=50){
+        amongUsImage.style.display = 'block';
+        frosty.play();
+        setTimeout(function() {
+            document.getElementById('amongUs').style.display = 'none';
+        }, 1000);
+    }
+}
 
 
 function nukeTheBurbs() {
