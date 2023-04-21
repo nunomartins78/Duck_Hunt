@@ -2,7 +2,6 @@ body {
     margin: 0;
     width: 1903px;
     height: 936px;
-    /*background-image: url("images/sky_night.png");*/
     background-repeat: no-repeat;
     background-size: 1903px 936px;
 }
@@ -68,22 +67,6 @@ body {
     animation-duration: 5s;
     transform-style: preserve-3d;
 }
-
-/*#dog{*/
-/*    display: flex;*/
-/*    position: absolute;*/
-/*    background-image: url("images/dog_walking.gif");*/
-/*    background-size: contain;*/
-/*    background-repeat: no-repeat;*/
-/*    z-index: 3;*/
-/*    width: 10%;*/
-/*    height: 20%;*/
-/*    top: 650px;*/
-/*    left: 70px;*/
-/*    animation-name: dogMove;*/
-/*    animation-duration: 7s;*/
-/*    transform-style: preserve-3d;*/
-/*}*/
 
 #dog{
     position: absolute;

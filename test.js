@@ -1,10 +1,6 @@
 window.innerWidth = screen.availWidth;
 window.innerHeight = screen.availHeight;
 
-// const canvas = document.getElementById('myCanvas');
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
-// const ctx = canvas.getContext('2d');
 
 const pew = document.getElementById("pewSound");
 const dies = document.getElementById("dieSound");
@@ -18,15 +14,6 @@ const ducks = [];
 const deadDucks = [];
 
 let tIdDog;
-
-const duckImg = new Image();
-duckImg.src = 'images/brown_duck.gif';
-const blueDuckImg = new Image();
-blueDuckImg.src = 'images/blue_duck.gif';
-const redDuckImg = new Image();
-redDuckImg.src = 'images/red_duck.gif';
-const solidForeground = new Image();
-solidForeground.src = 'images/newForeground.png'
 const foreground = document.getElementById('foreground');
 let score = 0;
 let bullets = 0;
@@ -34,26 +21,10 @@ const scoreBoard = document.getElementById('scoreBoard');
 scoreBoard.innerText = score;
 const bulletDisplay = document.getElementById('bulletDisplay');
 bulletDisplay.innerText = bullets;
+
 const kaboomBaby = document.getElementById('kaboomBaby');
 const mushroomCloud = document.getElementById('mushroomCloud');
 const dog = document.getElementById('dog');
-
-
-// let randomSky= Math.floor(Math.random() * 3) + 1;
-// switch (randomSky) {
-//     case 1:
-//         document.body.style.backgroundImage = "url('images/sky_day.png')";
-//         break;
-//     case 2:
-//         document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
-//         break;
-//     case 3:
-//         document.body.style.backgroundImage = "url('images/sky_night.png')";
-//         break;
-//     default:
-//         // handle unexpected case
-//         break;
-// }
 
 let mouseX;
 let mouseY;
@@ -88,7 +59,6 @@ class Duck {
                 clearInterval(this.tIdBird);
                 this.duckImg.style.background =  "url('images/pixelArt.png')";
                 this.duckImg.style.backgroundSize = '800% 700%';
-                this.duckImg.style.backgroundPosition = '0px -535px';
                 this.speed = 5;
                 redBirdFlyingLoop.call(this);
                 break;
@@ -96,7 +66,6 @@ class Duck {
                 clearInterval(this.tIdBird);
                 this.duckImg.style.background =  "url('images/pixelArt.png')";
                 this.duckImg.style.backgroundSize = '800% 700%';
-                this.duckImg.style.backgroundPosition = '-2px -430px';
                 this.speed = 4;
                 blueBirdFlyingLoop.call(this);
                 break;
@@ -104,7 +73,6 @@ class Duck {
                 clearInterval(this.tIdBird);
                 this.duckImg.style.background =  "url('images/pixelArt.png')";
                 this.duckImg.style.backgroundSize = '800% 700%';
-                this.duckImg.style.backgroundPosition = '-3px -330px';
                 this.speed = 3;
                 brownBirdFlyingLoop.call(this);
                 break;
@@ -114,15 +82,12 @@ class Duck {
         this.diry = this.speed * Math.sin(angle);
 
         this.duckDies = document.createElement("audio");
-        this.duckDies.src = "images/dies.mp3";
+        this.duckDies.src = "sound/dies.mp3";
         this.duckImg.style.width = this.gooseWidth + 'px';
         this.duckImg.style.height = this.gooseWidth + 'px';
-
-        duckAnimation(this.duckImg, this.x, this.y, this.previousX, this.previousY);
-
-
         this.duckDiv.appendChild(this.duckImg);
         this.duckDiv.appendChild(this.duckDies);
+        //duckOrientation(this.duckImg, this.x, this.y, this.previousX);
     }
 
     move() {
@@ -130,18 +95,14 @@ class Duck {
         this.previousY = this.y;
         this.x += this.dirx;
         this.y += this.diry;
-
         this.duckDiv.style.left = this.x + 'px';
         this.duckDiv.style.top = this.y + 'px';
-        duckAnimation(this.duckImg, this.x, this.y, this.previousX, this.previousY);
+        duckOrientation(this.duckImg, this.x, this.y, this.previousX);
     }
 
     falling(){
-        // this.duckImg.style.width = '65%';
-        // this.duckImg.style.height = '100%';
         this.diry = -5;
         this.y += -this.diry;
-        // this.duckImg.src = 'images/brown_duck_falling.gif';
         this.duckDiv.style.top = this.y + 'px';
 
     }
@@ -160,16 +121,11 @@ class Duck {
     checkGround() {
         if (this.y > 780|| this.y < 0) {
             this.duckDiv.remove();
-            // deadDucks.splice(0,1);
-
         }
-    }
-    display() {
-        // ctx.drawImage(duckImg, this.x, this.y, this.gooseWidth, this.gooseWidth);
     }
 }
 
-function duckAnimation(img, x, y, previousX, previousY) {
+function duckOrientation(img, x, y, previousX) {
     if(previousX > x) {
         // img.src = 'images/background-old.png';
         img.style.transform = 'scaleX(-1)';
@@ -183,8 +139,6 @@ function dist(x1, y1, x2, y2) {
 }
 
 function drawDucks() {
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     for (let i = 0; i < ducks.length; i++) {
         ducks[i].move();
         ducks[i].checkEdges();
@@ -250,7 +204,7 @@ function finalRound(){
 function newGame(){
     document.body.style.backgroundImage = "url('images/sky_day.png')";
     resetDog()
-    setTimeout(round1,1000);
+    setTimeout(round1,7000);
 }
 
 
@@ -261,9 +215,7 @@ function createDucks (duckNumber, colour){
 }
 
 document.addEventListener("mousedown", function (event) {
-    // mouseX = event.clientX - canvas.offsetLeft;
-    // mouseY = event.clientY - canvas.offsetTop;
-    // if (event.target.closest("#foreground")) return;
+
     if (event.target === bulletDisplay) {
         mushroomCloud.style.display = "block";
         kaboomBaby.style.display = "block";
@@ -295,18 +247,15 @@ document.addEventListener("mousedown", function (event) {
                 switch (duck.colour){
                     case "red":
                         clearInterval(duck.tIdBird);
-                        duck.duckImg.style.backgroundPosition = '-350px -558px';
-                        // redBirdFallingLoop.call(duck);
+                        redBirdFallingLoop.call(duck);
                         break;
                     case "blue":
                         clearInterval(duck.tIdBird);
-                        duck.duckImg.style.backgroundPosition = '-350px -448px';
-                        // blueBirdFallingLoop.call(duck);
+                        blueBirdFallingLoop.call(duck);
                         break;
                     case "brown":
                         clearInterval(duck.tIdBird);
-                        duck.duckImg.style.backgroundPosition = '-350px -338px';
-                        // brownBirdFallingLoop.call(duck);
+                        brownBirdFallingLoop.call(duck);
                         break;
                 };
                 pew.volume = 1;
@@ -357,8 +306,6 @@ function endRoundCheck(){
         console.log("continue");
     }
 }
-
-
 
 pew.addEventListener("timeupdate", function() {
     if (pew.volume < volumeThreshold) {
@@ -417,7 +364,6 @@ function nukeTheBurbs() {
 }
 
 dog.addEventListener('animationend', () => {
-
     clearInterval(tIdDog);
     dogJumpLoop();
 
@@ -430,7 +376,6 @@ dog.addEventListener('animationend', () => {
         dog.style.display = "none";
         clearInterval(tIdDog);
     }, 550)
-
 });
 
 function resetDog() {
@@ -438,7 +383,7 @@ function resetDog() {
     dogWalkLoop();
     dog.style.display = "block";
     dog.style.zIndex = "3";
-    dog.style.animation = 'dogMove 1s forwards';
+    dog.style.animation = 'dogMove 7s forwards';
 }
 function dogLaugh() {
     clearInterval(tIdDog);
@@ -454,11 +399,6 @@ function dogDucks() {
     dog.style.display = "block";
     dog.style.animation = 'dogDucks 3s forwards';
 }
-
-newGame();
-
-setInterval(drawDucks, 10);
-setInterval(audioVolume, 10);
 
 function dogWalkLoop() {
     let position = 10;
@@ -533,3 +473,45 @@ function redBirdFlyingLoop() {
         }
     }, 220);
 }
+
+function brownBirdFallingLoop() {
+    let position = 350;
+    this.tIdBird = setInterval(() => {
+        this.duckImg.style.backgroundPosition =
+            `-${position}px -338px`;
+        if (position < 540) {
+            position = position + 83;
+        } else {
+            position = 350;
+        }
+    }, 175);
+}
+function blueBirdFallingLoop() {
+    let position = 350;
+    this.tIdBird = setInterval(() => {
+        this.duckImg.style.backgroundPosition =
+            `-${position}px -448px`;
+        if (position < 540) {
+            position = position + 83;
+        } else {
+            position = 350;
+        }
+    }, 175);
+}
+function redBirdFallingLoop() {
+    let position = 350;
+    this.tIdBird = setInterval(() => {
+        this.duckImg.style.backgroundPosition =
+            `-${position}px -558px`;
+        if (position < 540) {
+            position = position + 83;
+        } else {
+            position = 350;
+        }
+    }, 175);
+}
+newGame();
+
+setInterval(drawDucks, 10);
+setInterval(audioVolume, 10);
+
