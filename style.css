@@ -104,6 +104,15 @@ body {
     z-index: 4;
 }
 
+#restart{
+    position: absolute;
+    top: 500px;
+    left: 650px;
+    width: 446px;
+    height: 124px;
+    z-index: 4;
+}
+
 @keyframes scrollAnimation {
     0%{
         left:0;
