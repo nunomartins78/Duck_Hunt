@@ -20,7 +20,7 @@ body {
     display: flex;
     position: absolute;
     background-image: url("images/score-counter.png");
-    /*background-repeat: no-repeat;*/
+    background-repeat: no-repeat;
     background-size: cover;
     z-index: 3;
     width: 160px;
