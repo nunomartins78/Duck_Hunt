@@ -5,6 +5,7 @@ body {
     height: 936px;
     background-repeat: no-repeat;
     background-size: 1903px 936px;
+    overflow: hidden;
 }
 #foreground {
     position: absolute;
