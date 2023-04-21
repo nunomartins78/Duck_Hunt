@@ -10,8 +10,8 @@ const volumeThreshold = 1;
 
 let activeRound = 0;
 
-const ducks = [];
-const deadDucks = [];
+let ducks = [];
+let deadDucks = [];
 
 let tIdDog;
 const foreground = document.getElementById('foreground');
@@ -29,7 +29,7 @@ const round = document.getElementById('round');
 const gameOver = document.getElementById('gameOver');
 gameOver.style.background = "url('images/gameOver.png')";
 const restart = document.getElementById('restart');
-restart.style.background = "url('images/restart.png')";
+restart.style.background = "url('images/start.png')";
 
 let mouseX;
 let mouseY;
@@ -198,7 +198,15 @@ function finalRound(){
 
 }
 function newGame(){
+    activeRound = 0;
+    for (let i = ducks.length - 1; i > -1; i--){
+        ducks[i].duckDiv.remove();
+    }
+    score = 0;
+    ducks = [];
+    deadDucks = [];
     gameOver.style.display = "none";
+    restart.style.display = "none";
     document.body.style.backgroundImage = "url('images/sky_day.png')";
     round.style.background = "url('images/round1.png')";
     round.style.display = 'block';
@@ -308,7 +316,9 @@ function endRoundCheck(){
                 break;
         }
     } else if (bullets===0){
+        restart.style.backgroundImage = "url('images/restart.png')";
         gameOver.style.display = "block";
+        restart.style.display = "block";
     } else {
         console.log("continue");
     }
@@ -347,7 +357,8 @@ function shotDucks(i) {
 }
 
 restart.addEventListener("mousedown", function(){
-    restart.style.display = 'block';
+    restart.style.display = 'none';
+    gameOver.style.display = 'none';
     newGame();
 })
 
@@ -522,7 +533,6 @@ function redBirdFallingLoop() {
         }
     }, 175);
 }
-newGame();
 
 setInterval(drawDucks, 10);
 setInterval(audioVolume, 10);
