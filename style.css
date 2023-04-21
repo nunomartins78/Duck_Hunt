@@ -12,7 +12,7 @@ body {
     background-image: url("images/splashScreen.png");
     background-size: contain;
     background-repeat: no-repeat;
-    z-index: 4;
+    z-index: 1;
     width: 702px;
     height: 671px;
     top: 122px;

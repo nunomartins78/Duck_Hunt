@@ -228,6 +228,8 @@ function finalRound(){
 
 }
 function newGame(){
+    score = 0;
+    scoreBoard.innerText = score;
     splashScreen.style.display = "none";
     activeRound = 0;
     for (let i = ducks.length - 1; i > -1; i--){
