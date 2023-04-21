@@ -25,6 +25,9 @@ bulletDisplay.innerText = bullets;
 const kaboomBaby = document.getElementById('kaboomBaby');
 const mushroomCloud = document.getElementById('mushroomCloud');
 const dog = document.getElementById('dog');
+const round = document.getElementById('round');
+const gameOver = document.getElementById('gameOver');
+gameOver.style.background = "url('images/gameOver.png')";
 
 let mouseX;
 let mouseY;
@@ -140,6 +143,7 @@ function drawDucks() {
 }
 
 function round1 (){
+    round.style.display = 'none';
     createDucks(5, "brown");
     bullets = 7;
     bulletDisplay.innerText = bullets;
@@ -147,6 +151,7 @@ function round1 (){
 }
 
 function round2 (){
+    round.style.display = 'none';
     createDucks(5, "brown");
     createDucks(2, "blue");
     bullets = 8;
@@ -155,6 +160,7 @@ function round2 (){
 }
 
 function round3 (){
+    round.style.display = 'none';
     createDucks(5, "brown");
     createDucks(2, "blue");
     createDucks(1, "red");
@@ -164,6 +170,7 @@ function round3 (){
 }
 
 function round4 (){
+    round.style.display = 'none';
     createDucks(4, "brown");
     createDucks(3, "blue");
     createDucks(2, "red");
@@ -173,6 +180,7 @@ function round4 (){
 }
 
 function round5 (){
+    round.style.display = 'none';
     createDucks(2, "brown");
     createDucks(5, "blue");
     createDucks(3, "red");
@@ -182,13 +190,17 @@ function round5 (){
 }
 
 function finalRound(){
+    round.style.display = 'none';
     /* BOSS */
     console.log("END")
 
 }
 function newGame(){
+    gameOver.style.display = "none";
     document.body.style.backgroundImage = "url('images/sky_day.png')";
-    resetDog()
+    round.style.background = "url('images/round1.png')";
+    round.style.display = 'block';
+    resetDog();
     setTimeout(round1,7000);
 }
 
@@ -260,30 +272,41 @@ function endRoundCheck(){
         switch (activeRound){
             case 1:
                 document.body.style.backgroundImage = "url('images/sky_day.png')";
-                resetDog()
+                resetDog();
+                round.style.display = 'block';
+                round.style.background = "url('images/round2.png')";
                 setTimeout(round2,7000);
                 break;
             case 2:
-                resetDog()
+                round.style.background = "url('images/round3.png')";
+                resetDog();
+                round.style.display = 'block';
                 document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
                 setTimeout(round3,7000);
                 break;
             case 3:
-                resetDog()
+                round.style.background = "url('images/round4.png')";
+                resetDog();
+                round.style.display = 'block';
                 document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
                 setTimeout(round4,7000);
                 break;
             case 4:
-                resetDog()
+                round.style.background = "url('images/round5.png')";
+                resetDog();
+                round.style.display = 'block';
                 document.body.style.backgroundImage = "url('images/sky_night.png')";
                 setTimeout(round5,7000);
                 break;
             case 5:
+                round.style.display = 'block';
+                round.style.background = "url('images/finalRound.png')";
                 document.body.style.backgroundImage = "url('images/sky_night.png')";
                 finalRound();
                 break;
         }
     } else if (bullets===0){
+        gameOver.style.display = "block";
         console.log('GAME OVER!');
     } else {
         console.log("continue");
