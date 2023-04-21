@@ -12,7 +12,7 @@ let activeRound = 0;
 
 let ducks = [];
 let deadDucks = [];
-
+let nextRound = true;
 let tIdDog;
 const foreground = document.getElementById('foreground');
 let score = 0;
@@ -160,6 +160,7 @@ function drawDucks() {
 }
 
 function round1 (){
+    nextRound = true;
     round.style.display = 'none';
     createDucks(5, "brown");
     bullets = 7;
@@ -170,6 +171,7 @@ function round1 (){
 }
 
 function round2 (){
+    nextRound = true;
     round.style.display = 'none';
     createDucks(5, "brown");
     createDucks(2, "blue");
@@ -181,6 +183,7 @@ function round2 (){
 }
 
 function round3 (){
+    nextRound = true;
     round.style.display = 'none';
     createDucks(5, "brown");
     createDucks(2, "blue");
@@ -193,6 +196,7 @@ function round3 (){
 }
 
 function round4 (){
+    nextRound = true;
     round.style.display = 'none';
     createDucks(4, "brown");
     createDucks(3, "blue");
@@ -205,6 +209,7 @@ function round4 (){
 }
 
 function round5 (){
+    nextRound = true;
     round.style.display = 'none';
     createDucks(2, "brown");
     createDucks(5, "blue");
@@ -311,7 +316,11 @@ document.addEventListener("mousedown", function (event) {
 });
 
 function endRoundCheck(){
+    if (!nextRound) {
+        return;
+    }
     if (ducks.length <= 0){
+        nextRound = false;
         switch (activeRound){
             case 1:
                 document.body.style.backgroundImage = "url('images/sky_day.png')";
@@ -345,7 +354,7 @@ function endRoundCheck(){
                 round.style.display = 'block';
                 round.style.background = "url('images/finalRound.png')";
                 document.body.style.backgroundImage = "url('images/sky_night.png')";
-                finalRound();
+                setTimeout(finalRound,7000);
                 break;
         }
     } else if (bullets===0){
