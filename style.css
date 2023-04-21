@@ -1,5 +1,5 @@
 body {
-    cursor: url('images/crosshair.png'), auto;
+    cursor: url('images/crosshair.png')16 16, auto;
     margin: 0;
     width: 1903px;
     height: 936px;
@@ -20,14 +20,13 @@ body {
     display: flex;
     position: absolute;
     background-image: url("images/score-counter.png");
-    background-size: 93px 63px;
+    /*background-repeat: no-repeat;*/
+    background-size: cover;
     z-index: 3;
-    width: 93px;
+    width: 160px;
     height: 63px;
     top: 830px;
     left: 55px;
-    font-size: 30pt;
-    color: white;
     justify-content: center;
     align-items: center;
 }
@@ -57,7 +56,7 @@ body {
 }
 #mushroomCloud{
     position: absolute;
-    background-image: url("images/blast.png");
+    background-image: url("sound/blast.png");
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 0;
@@ -105,13 +104,11 @@ body {
 }
 
 #restart{
-    animation-name: fadeIn;
-    animation-duration: 2s;
     position: absolute;
     top: 650px;
     left: 890px;
-    width: 113px;
-    height: 32px;
+    width: 112px;
+    height: 31px;
     z-index: 4;
 
 }
@@ -165,7 +162,7 @@ body {
     }
     50%{
         left: 902px;
-        top: 525px;
+        top: 545px;
     }
     100%{
         left: 902px;

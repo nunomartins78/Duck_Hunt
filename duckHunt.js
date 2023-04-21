@@ -20,7 +20,6 @@ let bullets = 0;
 const scoreBoard = document.getElementById('scoreBoard');
 scoreBoard.innerText = score;
 const bulletDisplay = document.getElementById('bulletDisplay');
-bulletDisplay.innerText = bullets;
 
 const kaboomBaby = document.getElementById('kaboomBaby');
 const mushroomCloud = document.getElementById('mushroomCloud');
@@ -148,7 +147,8 @@ function round1 (){
     round.style.display = 'none';
     createDucks(5, "brown");
     bullets = 7;
-    bulletDisplay.innerText = bullets;
+
+    bulletCount();
     activeRound = 1;
 }
 
@@ -157,7 +157,7 @@ function round2 (){
     createDucks(5, "brown");
     createDucks(2, "blue");
     bullets = 8;
-    bulletDisplay.innerText = bullets;
+    bulletCount();
     activeRound = 2;
 }
 
@@ -167,7 +167,7 @@ function round3 (){
     createDucks(2, "blue");
     createDucks(1, "red");
     bullets = 8;
-    bulletDisplay.innerText = bullets;
+    bulletCount();
     activeRound = 3;
 }
 
@@ -177,7 +177,7 @@ function round4 (){
     createDucks(3, "blue");
     createDucks(2, "red");
     bullets = 9;
-    bulletDisplay.innerText = bullets;
+    bulletCount();
     activeRound = 4;
 }
 
@@ -187,13 +187,16 @@ function round5 (){
     createDucks(5, "blue");
     createDucks(3, "red");
     bullets = 10;
-    bulletDisplay.innerText = bullets;
+    bulletCount();
     activeRound = 5;
 }
 
 function finalRound(){
-    round.style.display = 'none';
     /* BOSS */
+    round.style.display = 'none';
+    bullets = 10;
+    bulletCount();
+
     console.log("END")
 
 }
@@ -240,7 +243,7 @@ document.addEventListener("mousedown", function (event) {
     if (bullets!==0){
         bullets--;
     }
-    bulletDisplay.innerText = bullets;
+    bulletCount();
     console.log(mouseX + " & " + mouseY);
     pew.volume = 1;
     pew.play();
@@ -316,9 +319,10 @@ function endRoundCheck(){
                 break;
         }
     } else if (bullets===0){
-        restart.style.backgroundImage = "url('images/restart.png')";
         gameOver.style.display = "block";
+        restart.style.backgroundImage = "url('images/restart.png')";
         restart.style.display = "block";
+        restart.style.animation = "fadeIn 2s forwards";
     } else {
         console.log("continue");
     }
@@ -356,11 +360,14 @@ function shotDucks(i) {
     ducks[i].duckDiv.id = 'dead';
 }
 
-restart.addEventListener("mousedown", function(){
-    restart.style.display = 'none';
-    gameOver.style.display = 'none';
-    newGame();
+restart.addEventListener("mousedown", function(event){
+    if (event.target === restart) {
+        restart.style.display = 'none';
+        gameOver.style.display = 'none';
+        newGame();
+    }
 })
+
 
 function nukeTheBurbs() {
     for (let i = 0; i <= ducks.length;) {
@@ -532,6 +539,23 @@ function redBirdFallingLoop() {
             position = 350;
         }
     }, 175);
+}
+
+function bulletCount() {
+
+    let displayWidth = 93;
+    const bulletImages = bulletDisplay.getElementsByTagName('img');
+    while (bulletImages.length > 0) {
+        bulletDisplay.removeChild(bulletImages[0]);
+    }
+    for (let i = 0; i < bullets; i++) {
+        const bulletImg = document.createElement('img');
+        bulletImg.src = 'images/bullet.png';
+        bulletDisplay.appendChild(bulletImg);
+        // displayWidth += 10;
+        // bulletDisplay.style.width = `${displayWidth}px`
+    }
+
 }
 
 setInterval(drawDucks, 10);
