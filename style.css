@@ -7,6 +7,18 @@ body {
     background-size: 1903px 936px;
     overflow: hidden;
 }
+#splashScreen{
+    position: absolute;
+    background-image: url("images/splashScreen.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 4;
+    width: 702px;
+    height: 671px;
+    top: 39px;
+    left: 600px;
+
+}
 #foreground {
     position: absolute;
     background-image: url("images/newForeground2.png");
@@ -19,9 +31,9 @@ body {
 #bulletDisplay{
     display: flex;
     position: absolute;
-    background-image: url("images/score-counter.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: url("images/7bullets.png");
+
+    background-size: contain;
     z-index: 3;
     width: 160px;
     height: 63px;
@@ -56,7 +68,7 @@ body {
 }
 #mushroomCloud{
     position: absolute;
-    background-image: url("sound/blast.png");
+    background-image: url("images/blast.png");
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 0;
@@ -109,7 +121,7 @@ body {
     left: 890px;
     width: 112px;
     height: 31px;
-    z-index: 4;
+    z-index: 5;
 
 }
 

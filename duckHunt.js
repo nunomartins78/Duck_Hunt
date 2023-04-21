@@ -23,6 +23,7 @@ const bulletDisplay = document.getElementById('bulletDisplay');
 
 const kaboomBaby = document.getElementById('kaboomBaby');
 const mushroomCloud = document.getElementById('mushroomCloud');
+const splashScreen = document.getElementById('splashScreen');
 const dog = document.getElementById('dog');
 const round = document.getElementById('round');
 const gameOver = document.getElementById('gameOver');
@@ -162,7 +163,8 @@ function round1 (){
     round.style.display = 'none';
     createDucks(5, "brown");
     bullets = 7;
-
+    bulletDisplay.style.backgroundImage = "url('images/7bullets.png')";
+    bulletDisplay.style.width = '160px';
     bulletCount();
     activeRound = 1;
 }
@@ -172,6 +174,8 @@ function round2 (){
     createDucks(5, "brown");
     createDucks(2, "blue");
     bullets = 8;
+    bulletDisplay.style.backgroundImage = "url('images/8bullets.png')";
+    bulletDisplay.style.width = '182px';
     bulletCount();
     activeRound = 2;
 }
@@ -182,6 +186,8 @@ function round3 (){
     createDucks(2, "blue");
     createDucks(1, "red");
     bullets = 8;
+    bulletDisplay.style.backgroundImage = "url('images/8bullets.png')";
+    bulletDisplay.style.width = '182px';
     bulletCount();
     activeRound = 3;
 }
@@ -192,6 +198,8 @@ function round4 (){
     createDucks(3, "blue");
     createDucks(2, "red");
     bullets = 9;
+    bulletDisplay.style.backgroundImage = "url('images/9bullets.png')";
+    bulletDisplay.style.width = '204px';
     bulletCount();
     activeRound = 4;
 }
@@ -202,6 +210,8 @@ function round5 (){
     createDucks(5, "blue");
     createDucks(3, "red");
     bullets = 10;
+    bulletDisplay.style.backgroundImage = "url('images/10bullets.png')";
+    bulletDisplay.style.width = '226px';
     bulletCount();
     activeRound = 5;
 }
@@ -210,12 +220,15 @@ function finalRound(){
     /* BOSS */
     round.style.display = 'none';
     bullets = 10;
+    bulletDisplay.style.backgroundImage = "url('images/10bullets.png')";
+    bulletDisplay.style.width = '226px';
     bulletCount();
 
     console.log("END")
 
 }
 function newGame(){
+    splashScreen.style.display = "none";
     activeRound = 0;
     for (let i = ducks.length - 1; i > -1; i--){
         ducks[i].duckDiv.remove();
