@@ -3,10 +3,11 @@ window.innerHeight = screen.availHeight;
 
 
 const pew = document.getElementById("pewSound");
-const dies = document.getElementById("dieSound");
+// const dies = document.getElementById("dieSound");
 const nuke = document.getElementById("nuke");
 const explosion = document.getElementById("explosion");
 const frosty = document.getElementById("frostySound")
+const youDied = document.getElementById('youDied');
 const volumeThreshold = 1;
 let chanceOfAmongUs= 0;
 
@@ -29,11 +30,11 @@ const splashScreen = document.getElementById('splashScreen');
 const dog = document.getElementById('dog');
 const round = document.getElementById('round');
 const gameOver = document.getElementById('gameOver');
-gameOver.style.background = "url('images/gameOver.png')";
 const restart = document.getElementById('restart');
 restart.style.background = "url('images/start.png')";
 const gameName = document.getElementById('gameName')
 const amongUsImage = document.getElementById('amongUs')
+const bigDuck = document.getElementById('bigDuck')
 
 let mouseX;
 let mouseY;
@@ -126,12 +127,12 @@ class Duck {
         if (this.x > 1810 || this.x < 0) {
             this.dirx = -this.dirx;
         }
-        if (this.y > 780|| this.y < 0) {
+        if (this.y > 710|| this.y < 0) {
             this.diry = -this.diry;
         }
     }
     checkGround() {
-        if (this.y > 780|| this.y < 0) {
+        if (this.y > 710|| this.y < 0) {
             this.duckDiv.remove();
         }
     }
@@ -227,20 +228,22 @@ function round5 (){
 
 function finalRound(){
     /* BOSS */
+    foreground.style.pointerEvents = 'none';
     round.style.display = 'none';
     bullets = 10;
     bulletDisplay.style.backgroundImage = "url('images/10bullets.png')";
     bulletDisplay.style.width = '226px';
+    bigDuck.style.display = 'block';
+    bigDuck.style.animation = 'boss 15s forwards';
     bulletCount();
-
-    console.log("END")
-
 }
 function newGame(){
     score = 0;
     scoreBoard.innerText = score;
     splashScreen.style.display = "none";
     gameName.style.display = 'none';
+    bigDuck.style.display = 'none'
+    bigDuck.style.zIndex = '0';
     activeRound = 0;
     for (let i = ducks.length - 1; i > -1; i--){
         ducks[i].duckDiv.remove();
@@ -259,7 +262,7 @@ function newGame(){
 
 function createDucks (duckNumber, colour){
     for (let i = 0; i < duckNumber; i++) {
-        ducks.push(new Duck(950, 730, 100, colour));
+        ducks.push(new Duck(950, 710, 100, colour));
     }
 }
 
@@ -277,6 +280,17 @@ document.addEventListener("mousedown", function (event) {
         nukeTheBurbs();
         return;
     }
+    if (event.target === bigDuck) {
+        if (bullets===0){
+            return;
+        }
+        bigDuck.style.backgroundImage ="url('images/stabby_duck_mad.png')";
+        setTimeout(function () {
+            bigDuck.style.backgroundImage ="url('images/stabby_duck.png')";
+
+        }, 500);
+        pew.play();
+    }
 
     mouseX = event.clientX ;
     mouseY = event.clientY;
@@ -285,6 +299,9 @@ document.addEventListener("mousedown", function (event) {
     }
     bulletCount();
     console.log(mouseX + " & " + mouseY);
+    if (bigDuck.style.display === 'block' && bullets <= '0') {
+        return;
+    }
     pew.volume = 1;
     pew.play();
     let tempDucks = ducks.length;
@@ -306,9 +323,9 @@ document.addEventListener("mousedown", function (event) {
                         brownBirdFallingLoop.call(duck);
                         break;
                 };
-                pew.volume = 1;
                 duckDies.volume = 0.05;
                 duckDies.play();
+                pew.volume = 1;
             }, 550, ducks[i].duckImg, ducks[i].duckDies, ducks[i]);
             deadDucks.push(ducks[i]);
             ducks.splice(i, 1);
@@ -359,10 +376,11 @@ function endRoundCheck(){
                 round.style.display = 'block';
                 round.style.background = "url('images/finalRound.png')";
                 document.body.style.backgroundImage = "url('images/sky_night.png')";
-                setTimeout(finalRound,7000);
+                setTimeout(finalRound,5000);
                 break;
         }
     } else if (bullets===0){
+        gameOver.style.backgroundImage = "url('images/gameOver.gif')";
         gameOver.style.display = "block";
         restart.style.backgroundImage = "url('images/restart.png')";
         restart.style.display = "block";
@@ -599,8 +617,7 @@ function redBirdFallingLoop() {
 }
 
 function bulletCount() {
-
-    let displayWidth = 93;
+    // let displayWidth = 93;
     const bulletImages = bulletDisplay.getElementsByTagName('img');
     while (bulletImages.length > 0) {
         bulletDisplay.removeChild(bulletImages[0]);
@@ -614,6 +631,25 @@ function bulletCount() {
     }
 
 }
+bigDuck.addEventListener('animationend', () => {
+    bigDuck.style.zIndex = '3';
+    bigDuck.style.top = '220px';
+    kaboomBaby.style.backgroundImage = "url('images/slash.gif')";
+    kaboomBaby.style.display = 'block';
+    setTimeout(function() {
+        kaboomBaby.style.backgroundImage = "url('images/flash.gif')";
+        foreground.style.pointerEvents = 'all';
+        kaboomBaby.style.display = 'none';
+        gameOver.style.backgroundImage = "url('images/you_died.gif')";
+        gameOver.style.display = "block";
+        setTimeout(function() {
+            restart.style.backgroundImage = "url('images/restart.png')";
+            restart.style.display = "block";
+        }, 3000);
+        youDied.play();
+    }, 4500);
+
+});
 
 setInterval(drawDucks, 10);
 setInterval(audioVolume, 10);

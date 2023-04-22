@@ -120,6 +120,9 @@ body {
 }
 
 #gameOver{
+    background-image: url("images/gameOver.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     animation-name: fadeIn;
     animation-duration: 2s;
     position: absolute;
@@ -147,6 +150,21 @@ body {
     top: 800px;
     left: 1650px;
     z-index: 2;
+}
+#bigDuck{
+    position: absolute;
+    background-image: url("images/stabby_duck.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 0;
+    width: 600px;
+    height: 700px;
+    top: 160px;
+    left: 700px;
+    animation-name: boss;
+    animation-duration: 15s;
+    transform-style: preserve-3d;
+
 }
 
 @keyframes scrollAnimation {
@@ -231,3 +249,26 @@ body {
         height: 2000px;
     }
 }
+@keyframes boss{
+    from{
+        transform: translate(0%,120%);
+        left: 100px;
+        top: 160px;
+        width: 200px;
+        height: 300px;
+
+    }
+    to{
+        transform: translate(0px, 0px);
+
+        width: 600px;
+        height: 700px;
+
+    }
+}
+/*@media screen and (min-width: 768px) {*/
+/*    #bigDuck {*/
+/*        top: calc(50% - 350px);*/
+/*        left: calc(50% - 300px);*/
+/*    }*/
+/*}*/
