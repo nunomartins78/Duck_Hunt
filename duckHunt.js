@@ -266,7 +266,7 @@ function newGame(){
     round.style.background = "url('images/round1.png')";
     round.style.display = 'block';
     resetDog();
-    setTimeout(finalRound,1000);
+    setTimeout(round1,7000);
 }
 
 function createDucks (duckNumber, colour){
@@ -499,7 +499,7 @@ function resetDog() {
     dogWalkLoop();
     dog.style.display = "block";
     dog.style.zIndex = "3";
-    dog.style.animation = 'dogMove 1s forwards';
+    dog.style.animation = 'dogMove 7s forwards';
 }
 function dogLaugh() {
     clearInterval(tIdDog);
