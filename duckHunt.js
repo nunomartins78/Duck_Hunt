@@ -9,6 +9,7 @@ const explosion = document.getElementById("explosion");
 const frosty = document.getElementById("frostySound")
 const youDied = document.getElementById('youDied');
 const bossMusic = document.getElementById('bossMusic');
+const ost = document.getElementById('ost');
 const volumeThreshold = 1;
 let chanceOfAmongUs= 0;
 
@@ -265,6 +266,9 @@ function newGame(){
     document.body.style.backgroundImage = "url('images/sky_day.png')";
     round.style.background = "url('images/round1.png')";
     round.style.display = 'block';
+    ost.src = "sound/nextRound.mp3";
+    ost.loop = false;
+    ost.play();
     resetDog();
     setTimeout(round1,8000);
 }
@@ -301,6 +305,9 @@ document.addEventListener("mousedown", function (event) {
 
         }, 500);
         pew.play();
+    }
+    if (event.target === restart) {
+        return;
     }
 
     mouseX = event.clientX ;
@@ -356,6 +363,8 @@ function endRoundCheck(){
         nextRound = false;
         switch (activeRound){
             case 1:
+                ost.src = "sound/nextRound.mp3";
+                ost.play();
                 document.body.style.backgroundImage = "url('images/sky_day.png')";
                 resetDog();
                 round.style.display = 'block';
@@ -363,6 +372,8 @@ function endRoundCheck(){
                 setTimeout(round2,8000);
                 break;
             case 2:
+                ost.src = "sound/nextRound.mp3";
+                ost.play();
                 round.style.background = "url('images/round3.png')";
                 resetDog();
                 round.style.display = 'block';
@@ -370,6 +381,8 @@ function endRoundCheck(){
                 setTimeout(round3,8000);
                 break;
             case 3:
+                ost.src = "sound/nextRound.mp3";
+                ost.play();
                 round.style.background = "url('images/round4.png')";
                 resetDog();
                 round.style.display = 'block';
@@ -377,6 +390,8 @@ function endRoundCheck(){
                 setTimeout(round4,8000);
                 break;
             case 4:
+                ost.src = "sound/nextRound.mp3";
+                ost.play();
                 round.style.background = "url('images/round5.png')";
                 resetDog();
                 round.style.display = 'block';
@@ -384,6 +399,8 @@ function endRoundCheck(){
                 setTimeout(round5,8000);
                 break;
             case 5:
+                ost.src = "sound/nextRound.mp3";
+                ost.play();
                 round.style.display = 'block';
                 round.style.background = "url('images/finalRound.png')";
                 document.body.style.backgroundImage = "url('images/sky_night.png')";
@@ -391,7 +408,9 @@ function endRoundCheck(){
                 break;
         }
     } else if (bullets===0){
-        gameOver.style.backgroundImage = "url('images/gameOver.gif')";
+        ost.src = "sound/gameOver.mp3";
+        ost.play();
+        gameOver.style.backgroundImage = "url('images/gameOver.png')";
         gameOver.style.display = "block";
         restart.style.backgroundImage = "url('images/restart.png')";
         restart.style.display = "block";
@@ -445,7 +464,7 @@ restart.addEventListener("mousedown", function(event){
 
 function amongUs(){
     chanceOfAmongUs = Math.random()*100;
-    if (chanceOfAmongUs >=50){
+    if (chanceOfAmongUs >=95){
         amongUsImage.style.display = 'block';
         frosty.play();
         setTimeout(function() {
@@ -482,6 +501,8 @@ function nukeTheBurbs() {
 dog.addEventListener('animationend', () => {
     if(dog.style.animationName === 'dogMove') {
         clearInterval(tIdDog);
+        ost.src = "sound/dogBark.mp3";
+        ost.play();
         dogJumpLoop();
 
         setTimeout(function () {
@@ -509,6 +530,8 @@ function resetDog() {
 }
 function dogLaugh() {
     clearInterval(tIdDog);
+    ost.src = "sound/dogLaugh.mp3";
+    ost.play();
     dogLaughLoop();
     dog.style.display = "block";
     dog.style.animation = 'dogLaugh 3s forwards';
@@ -651,6 +674,8 @@ function bulletCount() {
 bigDuck.addEventListener('animationend', () => {
     bigDuck.style.zIndex = '3';
     bigDuck.style.top = '220px';
+    ost.src = "sound/slash.mp3";
+    ost.play();
     kaboomBaby.style.backgroundImage = "url('images/slash.gif')";
     kaboomBaby.style.display = 'block';
     setTimeout(function() {
@@ -674,7 +699,11 @@ bigDuck.addEventListener('animationend', () => {
 
 });
 
-
+window.onload = function() {
+    ost.src = "sound/intro.mp3";
+    ost.loop = true;
+    ost.play();
+}
 setInterval(drawDucks, 10);
 setInterval(audioVolume, 10);
 
