@@ -567,4 +567,3 @@ function animation(positionY, positionX, intervalId, target, maxPosition, increm
 
 setInterval(drawDucks, 10);
 setInterval(audioVolume, 10);
-
