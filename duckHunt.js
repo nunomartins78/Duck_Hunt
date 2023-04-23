@@ -266,7 +266,7 @@ function newGame(){
     round.style.background = "url('images/round1.png')";
     round.style.display = 'block';
     resetDog();
-    setTimeout(round1,7000);
+    setTimeout(round1,8000);
 }
 
 function createDucks (duckNumber, colour){
@@ -360,28 +360,28 @@ function endRoundCheck(){
                 resetDog();
                 round.style.display = 'block';
                 round.style.background = "url('images/round2.png')";
-                setTimeout(round2,7000);
+                setTimeout(round2,8000);
                 break;
             case 2:
                 round.style.background = "url('images/round3.png')";
                 resetDog();
                 round.style.display = 'block';
                 document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
-                setTimeout(round3,7000);
+                setTimeout(round3,8000);
                 break;
             case 3:
                 round.style.background = "url('images/round4.png')";
                 resetDog();
                 round.style.display = 'block';
                 document.body.style.backgroundImage = "url('images/sky_afternoon.png')";
-                setTimeout(round4,7000);
+                setTimeout(round4,8000);
                 break;
             case 4:
                 round.style.background = "url('images/round5.png')";
                 resetDog();
                 round.style.display = 'block';
                 document.body.style.backgroundImage = "url('images/sky_night.png')";
-                setTimeout(round5,7000);
+                setTimeout(round5,8000);
                 break;
             case 5:
                 round.style.display = 'block';
@@ -480,18 +480,24 @@ function nukeTheBurbs() {
 }
 
 dog.addEventListener('animationend', () => {
-    clearInterval(tIdDog);
-    dogJumpLoop();
-
-    setTimeout(function () {
-        dog.style.animation = 'dogJump 2s forwards';
-
-    }, 450)
-    setTimeout(function () {
-        dog.style.zIndex = "1";
-        dog.style.display = "none";
+    if(dog.style.animationName === 'dogMove') {
         clearInterval(tIdDog);
-    }, 550)
+        dogJumpLoop();
+
+        setTimeout(function () {
+            dog.style.animation = 'dogJump 2s forwards';
+
+        }, 450)
+        setTimeout(function () {
+            dog.style.zIndex = "1";
+            dog.style.display = "none";
+            round.style.display = 'none';
+            clearInterval(tIdDog);
+        }, 1000)
+        return;
+    }
+    dog.style.display = "none";
+    clearInterval(tIdDog);
 });
 
 function resetDog() {

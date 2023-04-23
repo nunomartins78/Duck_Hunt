@@ -116,7 +116,7 @@ body {
     height: 75px;
     z-index: 4;
     animation-name: scrollAnimation;
-    animation-duration: 7s;
+    animation-duration: 8s;
 }
 
 #gameOver{
@@ -192,7 +192,7 @@ body {
     0%{
         left:0;
     }
-    50%{
+    90%{
         left:650px;
     }
     100%{
@@ -222,12 +222,13 @@ body {
 @keyframes dogJump{
 
     from{
-        left: 902px;
-        bottom: 30px;
+        left: 802px;
+        top: 650px;
+
     }
     to{
         left: 902px;
-        bottom: 200px;
+        top: 550px;
     }
 }
 @keyframes dogLaugh{
@@ -242,6 +243,7 @@ body {
     100%{
         left: 902px;
         top: 650px;
+        display: none;
     }
 }
 @keyframes dogDucks{
