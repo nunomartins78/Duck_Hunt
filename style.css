@@ -164,7 +164,28 @@ body {
     animation-name: boss;
     animation-duration: 15s;
     transform-style: preserve-3d;
-
+}
+#healthBar {
+    position: absolute;
+    background-image: url("images/healthbar.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 3;
+    width: 1357px;
+    height: 100px;
+    top: 769px;
+    left: 280px;
+}
+#health {
+    position: absolute;
+    background-image: url("images/healthbar_red.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 4;
+    width: 1259px;
+    height: 14px;
+    top: 820px;
+    left: 325px;
 }
 
 @keyframes scrollAnimation {
@@ -266,9 +287,3 @@ body {
 
     }
 }
-/*@media screen and (min-width: 768px) {*/
-/*    #bigDuck {*/
-/*        top: calc(50% - 350px);*/
-/*        left: calc(50% - 300px);*/
-/*    }*/
-/*}*/

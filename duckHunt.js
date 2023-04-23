@@ -8,6 +8,7 @@ const nuke = document.getElementById("nuke");
 const explosion = document.getElementById("explosion");
 const frosty = document.getElementById("frostySound")
 const youDied = document.getElementById('youDied');
+const bossMusic = document.getElementById('bossMusic');
 const volumeThreshold = 1;
 let chanceOfAmongUs= 0;
 
@@ -35,6 +36,9 @@ restart.style.background = "url('images/start.png')";
 const gameName = document.getElementById('gameName')
 const amongUsImage = document.getElementById('amongUs')
 const bigDuck = document.getElementById('bigDuck')
+const healthBar = document.getElementById('healthBar');
+const health = document.getElementById('health');
+let remainingHealth = 1259;
 
 let mouseX;
 let mouseY;
@@ -228,16 +232,21 @@ function round5 (){
 
 function finalRound(){
     /* BOSS */
+    bossMusic.play()
     foreground.style.pointerEvents = 'none';
     round.style.display = 'none';
     bullets = 10;
     bulletDisplay.style.backgroundImage = "url('images/10bullets.png')";
     bulletDisplay.style.width = '226px';
+    healthBar.style.display = 'block';
+    health.style.display = 'block';
     bigDuck.style.display = 'block';
-    bigDuck.style.animation = 'boss 15s forwards';
+    bigDuck.style.animation = 'boss 30s forwards';
     bulletCount();
 }
 function newGame(){
+    youDied.pause();
+    youDied.currentTime = 0;
     score = 0;
     scoreBoard.innerText = score;
     splashScreen.style.display = "none";
@@ -257,7 +266,7 @@ function newGame(){
     round.style.background = "url('images/round1.png')";
     round.style.display = 'block';
     resetDog();
-    setTimeout(round1,7000);
+    setTimeout(finalRound,1000);
 }
 
 function createDucks (duckNumber, colour){
@@ -284,6 +293,8 @@ document.addEventListener("mousedown", function (event) {
         if (bullets===0){
             return;
         }
+        remainingHealth = remainingHealth - 20;
+        health.style.width = remainingHealth + 'px';
         bigDuck.style.backgroundImage ="url('images/stabby_duck_mad.png')";
         setTimeout(function () {
             bigDuck.style.backgroundImage ="url('images/stabby_duck.png')";
@@ -488,7 +499,7 @@ function resetDog() {
     dogWalkLoop();
     dog.style.display = "block";
     dog.style.zIndex = "3";
-    dog.style.animation = 'dogMove 7s forwards';
+    dog.style.animation = 'dogMove 1s forwards';
 }
 function dogLaugh() {
     clearInterval(tIdDog);
@@ -642,14 +653,21 @@ bigDuck.addEventListener('animationend', () => {
         kaboomBaby.style.display = 'none';
         gameOver.style.backgroundImage = "url('images/you_died.gif')";
         gameOver.style.display = "block";
+        healthBar.style.display = 'none';
+        health.style.display = 'none';
+        remainingHealth = 1259;
+        health.style.width = remainingHealth + 'px';
         setTimeout(function() {
             restart.style.backgroundImage = "url('images/restart.png')";
             restart.style.display = "block";
         }, 3000);
+        bossMusic.pause();
+        bossMusic.currentTime = 0;
         youDied.play();
     }, 4500);
 
 });
+
 
 setInterval(drawDucks, 10);
 setInterval(audioVolume, 10);
