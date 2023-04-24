@@ -4,19 +4,32 @@
         <meta charset="UTF-8">
         <title>Duck Hunt</title>
         <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <body id="body">
+        <div id="restart" style="display: block"></div>
+        <div id="splashScreen" style="display: block"></div>
+        <div id="gameName" style="display: block"></div>
         <div id="round" style="display: none"></div>
-        <div id="foreground"> </div>
-        <div id="scoreBoard"> </div>
-        <div id="bulletDisplay"> </div>
-        <div id="kaboomBaby" style="display:none"></div>
-        <div id="mushroomCloud" style="display:none"></div>
+        <div id="foreground"></div>
+        <div id="scoreBoard"></div>
+        <div id="bulletDisplay"></div>
         <div id="dog" style="display:none"></div>
         <div id="gameOver" style="display:none"></div>
+        <div id="bigDuck" style="display: none"></div>
+        <div id="healthBar" style="display: none"></div>
+        <div id="health" style="display: none"></div>
+        <div id="amongUs" style="display: none"></div>
+        <div id="kaboomBaby" style="display:none"></div>
+        <div id="mushroomCloud" style="display:none"></div>
+
+        <audio id="ost"></audio>
+        <audio id="bossMusic" src="sound/bossMusic.mp3"></audio>
+        <audio id="youDied" src="sound/GameOver-Theme.wav"></audio>
         <audio id="pewSound" src="sound/pew.mp3"></audio>
         <audio id="nuke" src="sound/nuke.mp3"></audio>
         <audio id="explosion" src="sound/nuke2.mp3"></audio>
-        <script src="test.js"></script>
+        <audio id="frostySound" src="sound/frosty.mp3"></audio>
+        <script src="duckHunt.js"></script>
     </body>
 </html>
