@@ -18,7 +18,6 @@ body {
     top: 52px;
     left: 450px;
 }
-
 #gameName{
     position: absolute;
     background-image: url("images/gameName.png");
@@ -30,7 +29,6 @@ body {
     top: 700px;
     left: 760px;
 }
-
 #foreground {
     position: absolute;
     background-image: url("images/newForeground2.png");
@@ -39,12 +37,10 @@ body {
     width: 1903px;
     height: 936px;
 }
-
 #bulletDisplay{
     display: flex;
     position: absolute;
     background-image: url("images/7bullets.png");
-
     background-size: contain;
     z-index: 3;
     width: 160px;
@@ -54,7 +50,6 @@ body {
     justify-content: center;
     align-items: center;
 }
-
 #scoreBoard{
     display: flex;
     position: absolute;
@@ -93,7 +88,6 @@ body {
     animation-duration: 5s;
     transform-style: preserve-3d;
 }
-
 #dog{
     position: absolute;
     background: url('images/pixelArt.png') no-repeat -5px -3px;
@@ -107,7 +101,6 @@ body {
     animation-duration: 7s;
     transform-style: preserve-3d;
 }
-
 #round{
     position: absolute;
     top: 350px;
@@ -118,7 +111,6 @@ body {
     animation-name: scrollAnimation;
     animation-duration: 8s;
 }
-
 #gameOver{
     background-image: url("images/gameOver.png");
     background-size: cover;
@@ -130,7 +122,6 @@ body {
     height: 936px;
     z-index: 4;
 }
-
 #restart {
     position: absolute;
     top: 800px;
@@ -139,7 +130,6 @@ body {
     height: 31px;
     z-index: 5;
 }
-
 #amongUs{
     background-image: url("images/amongUs.png");
     background-size: contain;
@@ -187,7 +177,6 @@ body {
     top: 820px;
     left: 325px;
 }
-
 @keyframes scrollAnimation {
     0%{
         left:0;
@@ -198,9 +187,7 @@ body {
     100%{
         left: 2500px;
     }
-
 }
-
 @keyframes fadeIn {
     from{
         opacity: 0;
@@ -209,7 +196,6 @@ body {
         opacity: 1;
     }
 }
-
 @keyframes dogMove {
     from {
         left: 70px;
@@ -218,7 +204,6 @@ body {
         left: 802px;
     }
 }
-
 @keyframes dogJump{
 
     from{
@@ -283,9 +268,7 @@ body {
     }
     to{
         transform: translate(0px, 0px);
-
         width: 600px;
         height: 700px;
-
     }
 }
