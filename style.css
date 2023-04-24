@@ -24,7 +24,7 @@ body {
     background-image: url("images/gameName.png");
     background-size: contain;
     background-repeat: no-repeat;
-    z-index: 2;
+    z-index: 3;
     width: 388px;
     height: 48px;
     top: 700px;

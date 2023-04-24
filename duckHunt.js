@@ -51,9 +51,6 @@ switch (randomSky) {
     case 3:
         document.body.style.backgroundImage = "url('images/sky_night.png')";
         break;
-    default:
-        // handle unexpected case
-        break;
 }
 
 class Duck {
@@ -73,8 +70,8 @@ class Duck {
         this.duckDiv.style.position = 'absolute';
         this.duckDiv.style.left = x + 'px';
         this.duckDiv.style.top = y + 'px';
-        this.duckDiv.style.width = w + 'px';
-        this.duckDiv.style.height = w + 'px';
+        // this.duckDiv.style.width = w + 'px';
+        // this.duckDiv.style.height = w + 'px';
         this.duckImg.style.background =  "url('images/pixelArt.png')";
         this.duckImg.style.backgroundSize = '800% 700%';
         this.duckImg.style.width = this.gooseWidth + 'px';
@@ -103,7 +100,6 @@ class Duck {
         this.duckDiv.style.top = this.y + 'px';
     }
     clickMe(){
-        console.log('Checking if click occurred on duck image...');
         return (dist(mouseX, mouseY, this.x + this.gooseWidth/2, this.y+ this.gooseWidth/2)< this.gooseWidth/2);
     }
     checkEdges() {
@@ -284,7 +280,6 @@ function round5 (){
 }
 
 function finalRound(){
-    /* BOSS */
     bossMusic.play()
     foreground.style.pointerEvents = 'none';
     round.style.display = 'none';
@@ -326,7 +321,7 @@ function newGame(){
 }
 function amongUs(){
     chanceOfAmongUs = Math.random()*100;
-    if (chanceOfAmongUs >=95){
+    if (chanceOfAmongUs >=85){
         amongUsImage.style.display = 'block';
         frosty.play();
         setTimeout(function() {
@@ -350,6 +345,10 @@ function triggerNuke() {
     nukeTheBurbs();
     return;
 }
+function rebirth(){
+    mushroomCloud.style.display = "none";
+    foreground.style.backgroundImage = "url('images/newForeground2.png')";
+}
 function bigDuckHitRegistration() {
     remainingHealth = remainingHealth - 20;
     health.style.width = remainingHealth + 'px';
@@ -372,6 +371,8 @@ function endRoundCheck(){
     }
     if (ducks.length <= 0){
         nextRound = false;
+        explosion.pause()
+        explosion.currentTime = 0;
         switch (activeRound){
             case 1:
                 document.body.style.backgroundImage = "url('images/sky_day.png')";
@@ -412,8 +413,6 @@ function endRoundCheck(){
         restart.style.backgroundImage = "url('images/restart.png')";
         restart.style.display = "block";
         restart.style.animation = "fadeIn 2s forwards";
-    } else {
-        console.log("continue");
     }
 }
 
@@ -424,22 +423,22 @@ window.onload = function() {
 }
 document.addEventListener("mousedown", function (event) {
     if (event.target === bulletDisplay) {triggerNuke();}
+    if (event.target === scoreBoard) {rebirth();}
     if (event.target === bigDuck) {
         if (bullets===0){return;}
         bigDuckHitRegistration();
     }
     if (event.target === restart) {return;}
+    if (dog.style.animationName === 'dogMove'){return;}
     mouseX = event.clientX ;
     mouseY = event.clientY;
     if (bullets!==0){bullets--;}
     bulletCount();
-    console.log(mouseX + " & " + mouseY);
     if (bigDuck.style.display === 'block' && bullets <= '0') {return;}
     pew.volume = 1;
     pew.play();
     let tempDucks = ducks.length;
     for (let i = ducks.length - 1; i > -1; i--) {
-        console.log('check');
         if (ducks[i].clickMe()) {
             shotDucks(i);
             setTimeout(function (duckImg, duckDies, duck) {
@@ -453,7 +452,7 @@ document.addEventListener("mousedown", function (event) {
             dogDucks();
         }
     }
-    if (tempDucks === ducks.length) {dogLaugh();}
+    if (tempDucks === ducks.length && bigDuck.style.display === 'none') {dogLaugh();}
     endRoundCheck();
 });
 
